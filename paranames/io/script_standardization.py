@@ -98,7 +98,7 @@ def standardize_script_manual(
 @click.option(
     "--scripts-file",
     "-s",
-    default="~/paranames/data/unicode_scripts_and_allowed_scripts_and_scripts_to_keep_final_022222.tsv",
+    default="~/paranames/data/scripts_to_keep.tsv",
 )
 def main(
     input_file,

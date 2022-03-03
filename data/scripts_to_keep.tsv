@@ -1,0 +1,489 @@
+language_code	language	scripts_to_keep
+aa	Afar	Latin
+ab	Abkhaz	Cyrillic
+abs	Ambonese	Latin
+ace	Acehnese	Latin
+ady	Adyghe	Cyrillic
+ady-cyrl	Adyghe in Cyrillic script	Cyrillic
+aeb	Tunisian Arabic	Arabic
+aeb-arab	Tunisian Arabic in Arabic script	Arabic
+aeb-latn	Tunisian Arabic in Latin script	Latin
+af	Afrikaans	Latin
+agq	Aghem	Latin
+ak	Akan	Latin
+aln	Gheg Albanian	Latin
+als	Swiss German	Latin
+alt	Altai	Cyrillic
+am	Amharic	Ethiopic
+ami	Amis	Latin
+an	Aragonese	Latin
+ang	Old English	Latin
+anp	Angika	Tirhuta,Devanagari
+ar	Arabic	Arabic
+arc	Aramaic	Syriac,Aramaic
+arn	Mapudungun	Latin
+arq	Algerian Arabic	Arabic
+ary	Moroccan Arabic	Arabic
+arz	Egyptian Arabic	Arabic
+as	Assamese	Bengali
+ase	American Sign Language	Latin
+ast	Asturian	Latin
+atj	Atikamekw	Latin
+av	Avaric	Cyrillic
+avk	Kotava	Latin
+awa	Awadhi	Devanagari
+ay	Aymara	Latin
+az	Azerbaijani	Latin
+azb	South Azerbaijani	Aarabic
+ba	Bashkir	Cyrillic
+ban	Balinese	Latin
+ban-bali	Balinese in Balinese script	Balinese
+bar	Bavarian	Latin
+bbc	Toba Batak	Latin
+bbc-latn	Batak Toba in Latin script	Latin
+bcc	Southern Balochi	Latin
+bcl	Central Bikol	Latin
+be	Belarusian	Cyrillic
+be-tarask	Taraškievica	Cyrillic
+be-x-old	Taraškievica	Cyrillic
+bg	Bulgarian	Cyrillic
+bgn	Western Balochi	Arabic
+bh	Bhojpuri	Devanagari
+bi	Bislama	Latin
+bjn	Banjar	Latin
+bm	Bambara	Latin
+bn	Bengali	Bengali
+bo	Tibetan	Tibetan
+bpy	Bishnupriya Manipuri	Bengali
+bqi	Bakhtiari	Arabic
+br	Breton	Latin
+brh	Brahui	Arabic
+bs	Bosnian	Latin, Cyrillic
+btm	Mandailing	Latin
+bto	Rinconada Bikol	Latin
+bug	Buginese	Latin
+bxr	Buryat	Cyrillic
+bxr	Russia Buriat	Cyrillic
+ca	Catalan	Latin
+cbk-zam	Chavacano	Latin
+cbk-zam	Zamboanga Chavacano	Latin
+cdo	Min Dong	Latin
+ce	Chechen	Cyrillic
+ceb	Cebuano	Latin
+ch	Chamorro	Latin
+cho	Choctaw	Latin
+chr	Cherokee	Cherokee
+chy	Cheyenne	Latin
+ckb	Kurdish Wikipedia	Arabic
+ckb	Sorani	Arabic
+co	Corsican	Latin
+cps	Capiznon	Latin
+cr	Cree	Latin
+crh	Crimean Tatar	Latin
+crh-cyrl	Crimean Tatar in Cyrillic	Cyrillic
+crh-latn	Crimean Tatar in Latin script	Latin
+cs	Czech	Latin
+csb	Kashubian	Latin
+cu	Church Slavonic	Cyrillic
+cu	Old Church Slavonic	Cyrillic
+cu	Slavonic musical notation	Cyrillic
+cu	Slavonic documents	Cyrillic
+cv	Chuvash	Cyrillic
+cy	Welsh	Latin
+da	Danish	Latin
+dag	Dagbani	Latin
+de	German	Latin
+de	German	Latin
+de-at	Austrian German	Latin
+de-ch	Swiss High German	Latin
+de-formal	formal address in German	Latin
+din	Dinka	Latin
+diq	Zazaki	Latin
+dsb	Lower Sorbian	Latin
+dtp	Kadazandusun	Latin
+dty	Doteli	Devanagari
+dua	Duala	Latin
+dv	Dhivehi	Thaana
+dz	Dzongkha	Tibetan
+ee	Ewe	Latin
+egl	Emilian	Latin
+el	Modern Greek	Greek
+el	Greek	Greek
+eml	Emilian-Romagnol	Latin
+en	English	Latin
+en-ca	Canadian English	Latin
+en-gb	British English	Latin
+en-us	American English	Latin
+eo	Esperanto	Latin
+es	Spanish	Latin
+es-419	Latin American Spanish	Latin
+es-formal	formal Spanish	Latin
+et	Estonian	Latin
+eu	Basque	Latin
+ext	Extremaduran	Latin
+fa	Persian	Arabic
+ff	Fula	Latin
+fi	Finnish	Latin
+fit	Meänkieli	Latin
+fj	Fijian	Latin
+fkv	Kven	Latin
+fo	Faroese	Latin
+fr	French	Latin
+frc	Louisiana French	Latin
+frp	Franco-Provençal	Latin
+frr	North Frisian	Latin
+fur	Friulian	Latin
+fy	West Frisian	Latin
+ga	Irish	Latin
+gag	Gagauz	Latin
+gan	Gan	Han
+gan-hans	simplified Gan	Han
+gan-hant	traditional Gan	Han
+gcr	Guianan Creole	Latin
+gd	Scottish Gaelic	Latin
+gl	Galician	Latin
+glk	Gilaki	Arabic
+gn	Guarani	Latin
+gom	Goan Konkani	Devanagari, Kannada
+gom-deva	Goan Konkani in Devanagari script	Devanagari
+gom-latn	Goan Konkani in Latin script	Latin
+gor	Gorontalo	Latin
+got	Gothic	Gothic
+grc	Ancient Greek	Greek
+gsw	Alemannic	Latin
+gu	Gujarati	Gujarati
+guc	Wayuu	Latin
+gv	Manx	Latin
+ha	Hausa	Latin
+hak	Hakka	Latin
+haw	Hawaiian	Latin
+he	Hebrew	Hebrew
+hi	Hindi	Devanagari
+hif	Fiji Hindi	Devanagari
+hif-latn	Fiji Hindi in Latin script	Latin
+hil	Hiligaynon	Latin
+ho	Hiri Motu	Latin
+hr	Croatian	Latin
+hrx	Hunsrik	Latin
+hsb	Upper Sorbian	Latin
+ht	Haitian Creole	Latin
+hu	Hungarian	Latin
+hu-formal	formal Hungarian	Latin
+hy	Armenian	Armenian
+hyw	Western Armenian	Armenian
+hz	Herero	Latin
+ia	Interlingua	Latin
+id	Indonesian	Latin
+ie	Interlingue	Latin
+ig	Igbo	Latin
+ii	Nuosu	Yi
+ik	Inupiaq	Latin
+ike-cans	Eastern Canadian (Aboriginal syllabics)	Canadian_Aboriginal
+ike-latn	Eastern Canadian in Latin script	Latin
+ilo	Ilocano	Latin
+inh	Ingush	Cyrillic
+io	Ido	Latin
+is	Icelandic	Latin
+it	Italian	Latin
+iu	Inuktitut	Canadian_Aboriginal
+ja	Japanese	Han,Hiragana,Katakana
+jam	Jamaican Creole	Latin
+jbo	Lojban	Latin
+jut	Jutlandic	Latin
+jv	Javanese	Latin
+ka	Georgian	Georgian
+ka	მთავარი გვერდი	Georgian
+kaa	Karakalpak	Cyrillic, Latin
+kab	Kabyle	Tifinagh,Latin
+kbd	Kabardian	Cyrillic
+kbd-cyrl	Kabardian in Cyrillic script	Cyrillic
+kbp	Kabiye	Latin
+kcg	Tyap	Latin
+kea	Cape Verdean Creole	Latin
+kg	Kongo	Latin
+khw	Khowar	Arabic
+ki	Gikuyu	Latin
+kiu	Kirmanjki	Latin
+kj	Kwanyama	Latin
+kjp	Eastern Pwo	Myanmar
+kk	Kazakh	Cyrillic
+kk-arab	Kazakh in Arabic script	Arabic
+kk-cn	Kazakh in China	Arabic
+kk-cyrl	Kazakh in Cyrillic script	Cyrillic
+kk-kz	Kazakh in Kazakhstan	Cyrillic, Latin
+kk-latn	Kazakh in Latin script	Latin
+kk-tr	Kazakh in Turkey	Latin
+kl	Greenlandic	Latin
+km	Khmer	Khmer
+kn	Kannada	Kannada
+ko	Korean	Hangul
+ko-kp	North Korean standard language	Hangul
+koi	Permyak	Cyrillic
+kr	Kanuri	Arabic, Latin
+krc	Karachay-Balkar	Cyrillic
+kri	Krio	Latin
+krj	Kinaray-a	Latin
+krl	Karelian	Cyrillic, Latin
+ks	Kashmiri	Arabic,Devanagari
+ks-arab	Kashmiri in Arabic script	Arabic
+ks-deva	Kashmiri in Devanagari script	Devanagari
+ksh	Kölsch	Latin
+ksh	Ripuarian	Latin
+ku	Kurdish Wikipedia	Latin
+ku	Kurmanji	Latin
+ku	Kurdish	Latin
+ku-arab	Kurdish in Arabic script	Arabic
+ku-latn	Kurdish in Latin script	Latin
+kum	Kumyk	Cyrillic
+kv	Komi	Cyrillic
+kw	Cornish	Latin
+ky	Kyrgyz	Cyrillic, Arabic
+la	Latin	Latin
+lad	Judaeo-Spanish	Latin
+lb	Luxembourgish	Latin
+lbe	Lak	Cyrillic
+lez	Lezgian	Cyrillic
+lfn	Lingua Franca Nova	Latin
+lg	Luganda	Latin
+li	Limburgish	Latin
+lij	Ligurian	Latin
+liv	Livonian	Latin
+lki	Laki	Latin
+lld	Ladin	Latin
+lmo	Lombard	Latin
+ln	Lingala	Latin
+lo	Lao	Lao, Khmer
+loz	Lozi	Latin
+lrc	Northern Luri	Arabic
+lt	Lithuanian	Latin
+ltg	Latgalian	Latin
+lus	Mizo	Latin
+luz	Southern Luri	Arabic
+lv	Latvian	Latin
+lzh	Classical Chinese	Han
+lzz	Laz	Georgian, Latin
+mad	Madurese	Latin, Arabic
+mai	Maithili	Devanagari, Tirhuta, Kaithi
+map-bms	Banyumasan	Latin
+mdf	Moksha	Cyrillic
+mg	Malagasy	Latin
+mh	Marshallese	Latin
+mhr	Meadow Mari	Cyrillic
+mi	Māori	Latin
+min	Minangkabau	Latin
+mk	Macedonian	Cyrillic
+ml	Malayalam	Malayalam
+mn	Mongolian	Cyrillic, Arabic, Mongolian
+mni	Meitei	Meetei_Mayek
+mnw	Mon	Myanmar
+mo	Moldovan	Latin, Cyrillic
+mr	Marathi	Devanagari
+mrj	Hill Mari	Cyrillic
+ms	Malay	Latin
+ms-arab	Malay in Jawi script	Arabic
+mt	Maltese	Latin
+mus	Muscogee	Latin
+mwl	Mirandese	Latin
+my	Burmese	Myanmar
+myv	Erzya	Cyrillic
+mzn	Mazanderani	Arabic
+na	Nauruan	Latin
+nah	Nahuatl	Latin
+	Southern Min	Latin
+nan-hani	nan-hani	Han
+nap	Neapolitan	Latin
+nb	Bokmål	Latin
+nds	Low German	Latin
+nds-nl	Dutch Low Saxon	Latin
+ne	Nepali	Devanagari
+new	Newar	Devanagari
+ng	Ndonga	Latin
+nia	Nias	Latin
+niu	Niuean	Latin
+nl	Dutch	Latin
+nl-informal	informal Dutch	Latin
+nn	Nynorsk	Latin
+no	Norwegian Wikipedias	Latin
+no	Norwegian	Latin
+nod	Northern Thai	Tai_Tham,Thai
+nov	Novial	Latin
+nqo	N'Ko	Nko
+nrm	Norman	Latin
+nso	Northern Sotho	Latin
+nv	Navajo	Latin
+ny	Chewa	Latin
+nys	Noongar	Latin
+oc	Occitan	Latin
+olo	Livvi-Karelian	Cyrillic
+om	Oromo	Latin
+or	Odia	Oriya
+os	Ossetian	Cyrillic
+ota	Ottoman Turkish	Arabic
+pa	Eastern Punjabi	Arabic, Gurmukhi, Devanagari
+pa	Punjabi	Arabic, Gurmukhi, Devanagari
+pag	Pangasinan	Latin
+pam	Kapampangan	Latin
+pap	Papiamento	Latin
+pcd	Picard	Latin
+pdc	Pennsylvania German	Latin
+pdt	Plautdietsch	Latin
+pfl	Palatinate German	Latin
+pi	Pali	Devanagari
+pih	Pitkern	Latin
+pl	Polish	Latin
+pms	Piedmontese	Latin
+pnb	Punjabi	Arabic, Gurmukhi, Devanagari
+pnb	Western Punjabi	Arabic, Gurmukhi, Devanagari
+pnt	Pontic Greek	Greek
+prg	Old Prussian	Latin
+ps	Pashto	Arabic
+pt	Portuguese	Latin
+pt-br	Brazilian Portuguese	Latin
+pwn	Paiwan	Latin
+pwn	katadrengan	Latin
+qu	Quechua	Latin
+quc	K’iche’	Latin
+qug	Kichwa	Latin
+rgn	Romagnol	Latin
+rif	Tarifit	Latin
+rm	Romansh	Latin
+rmc	Carpathian Romani	Latin
+rmf	Finnish Kalo	Latin
+rmy	Romani	Latin
+rn	Kirundi	Latin
+ro	Romanian	Latin
+roa-tara	Tarantino	Latin
+ru	Russian	Cyrillic
+rue	Rusyn	Cyrillic
+rup	Aromanian	Latin
+ruq	Megleno-Romanian	Latin
+ruq-cyrl	Megleno-Romanian in Cyrillic script	Cyrillic
+ruq-latn	Megleno-Romanian in Latin script	Latin
+rw	Kinyarwanda	Latin
+rwr	Marwari	Devanagari, Arabic
+ryu	Okinawan	Han, Hiragana
+sa	Sanskrit	Devanagari
+sah	Sakha	Cyrillic
+sat	Santali	Ol_Chiki
+sc	Sardinian	Latin
+scn	Sicilian	Latin
+sco	Scots	Latin
+sd	Sindhi	Arabic, Devanagari
+sdc	Sassarese	Latin
+sdh	Southern Kurdish	Arabic
+se	Northern Sami	Latin
+sei	Seri	Latin
+ses	Koyraboro Senni	Latin
+sg	Sango	Latin
+sh	Serbo-Croatian	Latin
+shi	Tashelhit	Arabic, Latin, Tifinagh
+shi-latn	Tachelhit in Latin script	Latin
+shi-tfng	Tachelhit in Tifinagh script	Tifinagh
+shn	Shan	Myanmar
+shy	Shawiya	Tifinagh
+shy-latn	Shawiya in Latin script	Latin
+si	Sinhala	Sinhala
+simple	Simple English	Latin
+sjd	Kildin Sami	Latin, Cyrillic
+sje	Pite Sami	Latin
+sju	Ume Sami	Latin
+sk	Slovak	Latin
+skr	Saraiki	Arabic
+skr-arab	Saraiki in Arabic script	Arabic
+sl	Slovene	Latin
+sli	Silesian German	Latin
+sm	Samoan	Latin
+sma	Southern Sami	Latin
+smj	Lule Sami	Latin
+smn	Inari Sami	Latin
+sms	Skolt Sami	Latin
+sn	Shona	Latin
+so	Somali	Latin
+sq	Albanian	Latin
+sr	Serbian	Cyrillic, Latin
+sr-ec	Serbian written in Cyrillic	Cyrillic, Latin
+sr-el	Serbian (Latin script)	Latin
+srn	Sranan Tongo	Latin
+srq	Sirionó	Latin
+ss	Swazi	Latin
+st	Sesotho	Latin
+stq	Saterland Frisian	Latin
+sty	Siberian Tatar	Cyrillic, Latin
+su	Sundanese	Latin
+sv	Swedish	Latin
+sw	Swahili	Latin
+szl	Silesian	Latin
+szy	Sakizaya	Latin
+ta	Tamil	Tamil
+tay	Atayal	Latin
+tcy	Tulu	Kannada
+te	Telugu	Telugu
+tet	Tetum	Latin
+tg	Tajik	Cyrillic, Arabik, Latin
+tg-cyrl	Tajik in Cyrillic script	Cyrillic
+tg-latn	Tajik in Latin script	Latin
+th	Thai	Thai
+ti	Tigrinya	Ethiopic
+tk	Turkmen	Latin
+tl	Tagalog	Latin
+tly	Talysh	Arabic, Latin, Cyrillic
+tn	Tswana	Latin
+to	Tongan	Latin
+tpi	Tok Pisin	Latin
+tr	Turkish	Latin
+tru	Turoyo	Latin
+trv	Seediq	Latin
+ts	Tsonga	Latin
+tt	Tatar	Cyrillic, Latin
+tt-cyrl	Tatar in Cyrillic script	Cyrillic
+tt-latn	Tatar in Latin script	Latin
+tum	Tumbuka	Latin
+tw	Twi	Latin
+ty	Tahitian	Latin
+tyv	Tuvan	Cyrillic
+tzm	Central Atlas Tamazight	Tifinagh, Arabic
+udm	Udmurt	Cyrillic
+ug	Uyghur	Arabic, Cyrillic, Latin
+ug-arab	Uyghur in Arabic script	Arabic
+ug-latn	Uyghur in Latin script	Latin
+uk	Ukrainian	Cyrillic
+ur	Urdu	Arabic
+uz	Uzbek	Cyrillic
+uz-cyrl	Uzbek in Cyrillic script	Cyrillic
+uz-latn	Uzbek in Latin script	Latin
+ve	Venda	Latin
+vec	Venetian	Latin
+vep	Veps	Latin
+vi	Vietnamese	Latin
+vls	West Flemish	Latin
+vmf	Main-Franconian	Latin
+vo	Volapük	Latin
+vot	Votic	Latin, Cyrillic
+wa	Walloon	Latin
+war	Waray	Latin
+wls	Wallisian	Latin
+wo	Wolof	Latin
+wuu	Wu Chinese	Han
+xal	Kalmyk Oirat	Cyrillic
+xh	Xhosa	Latin
+xmf	Mingrelian	Georgian
+xsy	Saisiyat	Latin
+yi	Yiddish	Hebrew
+yo	Yoruba	Latin
+za	Zhuang	Han
+zea	Zeelandic	Latin
+zgh	Standard Moroccan Berber	Tifinagh
+zh	Chinese	Han
+zh-cn	Putonghua	Han
+zh-hans	Simplified Chinese	Han
+zh-hant	Traditional Chinese	Han
+zh-hk	Chinese (Hong Kong)	Han
+zh-min-nan	Southern Min	Han
+zh-mo	Chinese in Macau	Han
+zh-my	Malaysian Mandarin	Han
+zh-sg	Singaporean Mandarin	Han
+zh-tw	Standard Taiwanese Mandarin	Han
+zh-tw	Taiwanese Mandarin	Han
+zh-yue	Yue Chinese	Han
+zh-yue	Cantonese	Han
+zu	Zulu	Latin
