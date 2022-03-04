@@ -21,15 +21,6 @@ def setup_package() -> None:
         license="MIT",
         description="ParaNames",
         long_description=long_description,
-        # install_requires=[
-        # "attrs>=19.2.0",
-        # "click",
-        # "tabulate",
-        # ],
-        # entry_points="""
-        # [console_scripts]
-        # paranames=paranames.scripts.paranames:cli
-        # """,
         classifiers=[
             "Development Status :: 2 - Pre-Alpha",
             "License :: OSI Approved :: MIT License",
