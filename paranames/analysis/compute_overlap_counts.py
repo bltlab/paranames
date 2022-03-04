@@ -16,12 +16,14 @@ def compute_overlap_counts(
     language_column="language",
 ) -> Dict[str, int]:
     counts: DefaultDict[str, Set[str]] = defaultdict(set)
+
     for wikidata_id, conll_type in track(
         zip(df[wikidata_id_column], df[conll_type_column]), total=df.shape[0]
     ):
         counts[wikidata_id].add(conll_type)
 
     overlap_counts = Counter("-".join(sorted(types)) for types in track(counts.values(), total=len(counts)))
+
     return overlap_counts
 
 
@@ -43,7 +45,9 @@ def compute_overlap_counts(
     "--output-file",
     "-o",
     required=True,
-    type=click.Path(file_okay=True, dir_okay=False, readable=True, allow_dash=True),
+    type=click.File(
+        mode="w", encoding="utf-8"
+    )
 )
 @click.option(
     "--output-format",
@@ -72,8 +76,7 @@ def main(
         language_column=language_column,
     )
     print(f"[compute_overlap_counts] Writing to {output_file}")
-    with open(output_file, "w", encoding="utf-8") as fout:
-        fout.write(orjson_dump(overlap_counts))
+    output_file.write(orjson_dump(overlap_counts))
 
 
 if __name__ == "__main__":
