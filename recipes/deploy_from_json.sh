@@ -10,7 +10,7 @@ usage () {
 }
 
 # Make sure we have enough command line arguments
-[ $# -lt 5 ] && usage && exit 1
+[ $# -lt 3 ] && usage && exit 1
 
 ## Constant
 IO_SCRIPT_FOLDER=paranames/io
@@ -19,7 +19,7 @@ IO_SCRIPT_FOLDER=paranames/io
 INPUT_JSON=${1}
 DB_NAME=${2}
 COLL_NAME=${3}
-CHUNKSIZE=${4:-5000}
+CHUNKSIZE=${4:-10000}
 DEFAULT_CPUS=$(nproc)
 N_WORKERS=${5:-$DEFAULT_CPUS}
 
