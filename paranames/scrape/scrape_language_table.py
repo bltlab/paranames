@@ -80,13 +80,6 @@ def main(url, columns, african_only, abbrev_only, mapping_only, output_tsv):
     output = get_language_codes_sparql()
     df = pd.DataFrame.from_records(output, columns=columns.split(","))
 
-    if african_only:
-
-        with open("data/african-languages.txt", encoding="utf-8") as f:
-            african_langs = set([line.strip() for line in f.readlines()])
-
-        df = df[df.language.isin(african_langs)].reset_index(drop=True)
-
     if abbrev_only:
         print("\n".join(df.lang_code.unique()))
     elif mapping_only:
