@@ -51,15 +51,21 @@ It is recommended that you use a Conda environment for package management.
 To create a corpus following our approach, follow the steps below: 
 
 1. Download the latest Wikidata dump from the [Wikimedia page](https://dumps.wikimedia.org/wikidatawiki/entities/) and extract it. Note that this may take up several TB of disk space.
-2. Ingest the JSON dump into MongoDB by running `recipes/deploy_from_json.sh <path_to_extracted_json> <db_name> <collection_name> <chunk_size> <n_workers>`
-3. Once the process finishes, generate a TSV dump by running 
+2. Ingest the JSON dump into MongoDB by running 
+
+```
+recipes/deploy_from_json.sh <path_to_extracted_json> <db_name> <collection_name> <chunk_size> <n_workers>
+```
+5. Once the process finishes, generate a TSV dump by running 
 
 ```
 recipes/separate_folder_dump.sh <languages> <output_folder> <types> <db_name> <collection_name> <should_lump_languages> <n_workers>
 ```
 
-Setting `should_lump_languages=yes` will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` -> `kk` etc.
+### Notes
 
-Within [`recipes/separate_folder_dump.sh`](https://github.com/bltlab/paranames/blob/main/recipes/separate_folder_dump.sh), it is also possible to define languages to be excluded and whether entity types should be disambiguated. By default, no languages are excluded and no disambiguation is done.
+- Setting `should_lump_languages=yes` will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` -> `kk` etc.
 
-After `recipes/separate_folder_dump.sh` completes, `<output_folder>` will contain one folder per language, inside of which is a TSV file containing the subset of names in that language. Combined TSVs with names in all languages are available in the `combined` folder. 
+- Within [`recipes/separate_folder_dump.sh`](https://github.com/bltlab/paranames/blob/main/recipes/separate_folder_dump.sh), it is also possible to define languages to be excluded and whether entity types should be disambiguated. By default, no languages are excluded and no disambiguation is done.
+
+- After `recipes/separate_folder_dump.sh` completes, `<output_folder>` will contain one folder per language, inside of which is a TSV file containing the subset of names in that language. Combined TSVs with names in all languages are available in the `combined` folder. 
