@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage () {
-    echo "Usage: bash separate_folder_dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple COLLAPSE_LANGUAGES=no NUM_WORKERS=n_cpus]"
+    echo "Usage: bash separate_folder_dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple COLLAPSE_LANGUAGES=no NUM_WORKERS=1]"
 }
 
 [ $# -lt 4 ] && usage && exit 1
@@ -16,8 +16,7 @@ collection_name="${5:-wikidata_simple}"
 default_format="tsv"
 should_collapse_languages=${6:-no}
 
-default_num_workers=$(nproc)
-num_workers=${7:-$default_num_workers}
+num_workers=${7:-1}
 
 extra_data_folder="${output_folder}"/extra_data
 
