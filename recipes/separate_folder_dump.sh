@@ -15,7 +15,6 @@ db_name="${4:-wikidata_db}"
 collection_name="${5:-wikidata_simple}"
 default_format="tsv"
 should_collapse_languages=${6:-no}
-voting_method="baseline"
 
 default_num_workers=$(nproc)
 num_workers=${7:-$default_num_workers}
@@ -106,36 +105,13 @@ postprocess () {
 standardize_script () {
     local input_file=$1
     local output_file=$2
-    local vote_aggregation_method=$3
-    local num_workers=$4
+    local num_workers=$3
 
     # apply script standardization
     python paranames/io/script_standardization.py \
         -i $input_file -o $output_file -f tsv \
-        --vote-aggregation-method $vote_aggregation_method \
         --filtered-names-output-file "${extra_data_folder}/filtered_names.tsv" \
         --write-filtered-names --num-workers $num_workers
-}
-
-standardize_names () {
-    local input_file=$1
-    local output_file=$2
-    local permuter_type=$3
-    local conll_type=$4
-
-    # apply script standardization
-    python paranames/io/name_standardization.py \
-        -i $input_file -o $output_file -f tsv \
-        --human-readable-langs-path ~/paranames/data/human_readable_lang_names.json \
-        --permuter-type $permuter_type --corpus-stats-output ${extra_data_folder}/standardize_names_stats_$conll_type \
-        --debug-mode --num-workers $num_workers --corpus-require-english
-}
-
-compute_script_entropy () {
-    local input_file=$1
-    local output_file=$2
-    local script="paranames/analysis/script_entropy_with_cache.sh"
-    bash $script $input_file $output_file
 }
 
 separate_by_language () {
@@ -159,50 +135,35 @@ combine_tsv_files () {
     xsv cat rows -d"\t" ${glob} | csv2tsv
 }
 
-separate_by_entity_type () {
-    local input_file=$1
-    local conll_type=$2
-    local folder=$(dirname "${input_file}")
-    local type_column=${3:-type}
-    xsv search -d"\t" -s "${type_column}" "${conll_type}" < "${input_file}" | csv2tsv
-}
-
-echo "Extract & clean everything for each type"
+# Step 1: Dump and parallelize across types
+echo "[1/5] Extract from MongoDB..."
 for conll_type in $entity_types
 do
     dump $conll_type $langs $db_name $collection_name &
 done
 wait
 
-# combine everything into one tsv for script standardization
+# Step 2: combine into one TSV
 combined_tsv="${output_folder}/combined_postprocessed.tsv"
+echo "[2/5] Combining TSV files together into $combined_tsv"
 combine_tsv_files ${output_folder}/*.tsv > $combined_tsv
 
+# Step 3: Apply post-processing steps
+echo "[3/5] Running postprocess.py"
 combined_postprocessed_tsv="${output_folder}/combined_postprocessed.tsv"
 postprocess $combined_tsv $combined_postprocessed_tsv $should_disambiguate_types $should_collapse_languages
 
-
-# script standardization: remove parentheses from everything
-combined_script_standardized_tsv="${output_folder}/combined_script_standardized_${voting_method}.tsv"
+# Step 4: Script standardization
+echo "[4/5] Script standardization"
+combined_script_standardized_tsv="${output_folder}/combined_script_standardized.tsv"
 standardize_script \
     $combined_postprocessed_tsv \
     $combined_script_standardized_tsv \
-    $voting_method $num_workers
+    $num_workers
 
-# separate into PER,LOC,ORG for name permutations
-for conll_type in $entity_types
-do
-    separate_by_entity_type $combined_script_standardized_tsv $conll_type \
-        > "${output_folder}/${conll_type}_script_standardized_${voting_method}.tsv" &
-done
-wait
-
-echo "Combine everything into one big tsv"
-final_combined_output="${output_folder}/combined_script_standardized_${voting_method}.tsv"
-echo "Destination: ${final_combined_output}"
-
-rm -vrf $final_combined_output
-combine_tsv_files ${output_folder}/*_script_standardized_${voting_method}.tsv > $final_combined_output
-separate_by_language $final_combined_output
+# Step 5: Separate into subfolders by language
+echo "[5/5] Separate into subfolders by language..."
+echo "Destination: ${combined_script_standardized_tsv}"
+separate_by_language $combined_script_standardized_tsv
 
 mv --verbose ${output_folder}/{PER,LOC,ORG,combined}*.tsv ${output_folder}/combined

@@ -8,12 +8,9 @@ import multiprocessing as mp
 
 import click
 import pandas as pd
-from tqdm import tqdm
+from rich import print
 from paranames.util import read, write
 import paranames.util.script as s
-
-
-vote_aggregation_methods = set(["baseline", "all", "any", "majority_vote"])
 
 
 def validate_name(
@@ -30,6 +27,7 @@ def validate_name(
 
     return (
         ua.most_common_icu_script(name)
+
         if icu_mode
         else ua.most_common_unicode_block(name)
     ) in allowed_scripts[language]
@@ -51,6 +49,7 @@ def standardize_script_manual(
     scripts = read(scripts_file, "tsv")
     allowed_scripts_per_lang = {
         lang: set(s.strip() for s in scr.split(","))
+
         for lang, scr in zip(scripts.language_code, scripts.scripts_to_keep)
     }
 
@@ -86,12 +85,6 @@ def standardize_script_manual(
 @click.option("--language-column", "-l", default="language")
 @click.option("--num-workers", type=int, default=2)
 @click.option("--chunksize", type=int, default=15000)
-@click.option(
-    "--vote-aggregation-method",
-    default="majority_vote",
-    type=click.Choice(vote_aggregation_methods),
-    help="Aggregation function to use in script standardization. (Default: majority vote)",
-)
 @click.option("--write-filtered-names", is_flag=True)
 @click.option("--filtered-names-output-file", default="")
 @click.option("--compute-script-entropy", is_flag=True)
@@ -111,7 +104,6 @@ def main(
     language_column,
     num_workers,
     chunksize,
-    vote_aggregation_method,
     write_filtered_names,
     filtered_names_output_file,
     compute_script_entropy,
@@ -126,7 +118,6 @@ def main(
         id_column=id_column,
         type_column=type_column,
         language_column=language_column,
-        aggregation_method=vote_aggregation_method,
         num_workers=num_workers,
         chunksize=chunksize,
         scripts_file=scripts_file,
