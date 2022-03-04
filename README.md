@@ -42,7 +42,7 @@ First, install the following dependencies:
 
 Then install the Python dependencies from `requirements.txt` by running `pip install -r requirements.txt`.
 
-Next, install ParaNames itself by running `pip install -e ./`. 
+Next, install ParaNames itself by running `pip install -e .`. 
 
 It is recommended that you use a Conda environment for package management.
 
