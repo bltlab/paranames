@@ -32,7 +32,7 @@ In current releases, any entity that is associated with multiple named entity ty
 
 If you want a unique set of entities, you should deduplicate the data using the `wikidata_id` field.
 
-If you only want to use entities that are associated with a single named entity type, you should remove any `wikidata_id` that appears multiple times in multiple rows.
+If you only want to use entities that are associated with a single named entity type, you should remove any `wikidata_id` that appears in multiple rows.
 
 
 # Using the code
