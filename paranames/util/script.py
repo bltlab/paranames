@@ -21,7 +21,6 @@ import os
 import unicodedata as ud
 from unicodeblock import blocks
 from tqdm import tqdm
-from p_tqdm import p_map
 import pandas as pd
 import numpy as np
 import attr
@@ -408,15 +407,7 @@ class UniversalRomanizer:
             return self.call_parallel(strings)
 
     def call_parallel(self, strings: List[str]) -> List[str]:
-        return list(
-            it.chain.from_iterable(
-                p_map(
-                    self.call,
-                    chunks(strings, self.chunksize),
-                    num_cpus=self.num_workers,
-                )
-            )
-        )
+        raise NotImplementedError("Deprecated!")
 
     def call(self, strings: List[str]) -> List[str]:
 
