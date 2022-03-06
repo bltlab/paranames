@@ -36,7 +36,7 @@ def use_single_worker(worker, port=DEFAULT_MONGODB_PORT):
 @click.option(
     "--simple-records",
     is_flag=True,
-    help="Keep only name, id, aliases, instance_ofs, and languages",
+    help="Keep only name, id, labels, instance_ofs, and languages",
 )
 def main(
     dump_file,

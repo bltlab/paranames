@@ -27,7 +27,7 @@ def output_jsonl(
     language_set = set(languages)
     not_language_set = set(not_languages)
 
-    for lang, alias in document.aliases.items():
+    for lang, label in document.labels.items():
 
         not_in_include_set = strict and lang not in language_set
         in_exclude_set = lang in not_language_set
@@ -38,7 +38,7 @@ def output_jsonl(
             {
                 "wikidata_id": wikidata_id,
                 "name": name,
-                "alias": alias,
+                "label": label,
                 "language": lang,
                 "type": conll_type,
             }
@@ -65,7 +65,7 @@ def output_csv(
     writer = csv.DictWriter(
         f,
         delimiter=delimiter,
-        fieldnames=["wikidata_id", "name", "alias", "language", "type"],
+        fieldnames=["wikidata_id", "name", "label", "language", "type"],
         extrasaction="ignore",
     )
 
@@ -76,11 +76,11 @@ def output_csv(
         {
             "wikidata_id": wikidata_id,
             "name": name,
-            "alias": alias,
+            "label": label,
             "language": lang,
             "type": conll_type,
         }
-        for lang, alias in document.aliases.items()
+        for lang, label in document.labels.items()
     )
 
     if strict:

@@ -3,11 +3,12 @@ import math
 
 from typing import Generator, Set, List, Union, Dict, Any
 from pymongo import MongoClient
+from paranames.util import orjson_dump
 
 DEFAULT_MONGODB_PORT = 27617
 
 
-class WikidataRecord:
+class ikidataRecord:
     def __init__(
         self, record: dict, default_lang: str = "en", simple: bool = False
     ) -> None:
@@ -16,8 +17,8 @@ class WikidataRecord:
         self.default_lang = default_lang
         self.parse_ids()
         self.parse_instance_of()
-        self.parse_aliases()
-        self.parse_alias_langs()
+        self.parse_labels()
+        self.parse_languages()
         self.parse_ipa()
 
     def parse_ids(self) -> None:
@@ -34,43 +35,44 @@ class WikidataRecord:
             try:
                 self.instance_ofs = set(
                     iof["mainsnak"]["datavalue"]["value"]["id"]
+
                     for iof in self.record["claims"]["P31"]
                 )
             except KeyError:
                 self.instance_ofs = set()
 
-    def parse_aliases(self) -> None:
+    def parse_labels(self) -> None:
         if self.simple:
-            self.aliases = self.record["aliases"]
+            self.labels = self.record["labels"]
         else:
-            self.aliases = {
+            self.labels = {
                 lang: d["value"] for lang, d in self.record["labels"].items()
             }
 
-    def parse_alias_langs(self) -> None:
+    def parse_languages(self) -> None:
         if self.simple:
-            self.alias_langs = self.record["languages"]
+            self._languages = self.record["languages"]
         else:
-            self.alias_langs = {lang for lang in self.aliases}
+            self._languages = {lang for lang in self.labels}
 
     def parse_ipa(self) -> None:
         pass
 
     @property
+    def languages(self) -> Set[str]:
+        """Returns a set of languages in which the entity has a transliteration."""
+
+        return self._languages
+
+    @property
     def name(self) -> str:
         try:
             if not hasattr(self, "_name"):
-                self._name = self.aliases[self.default_lang]
+                self._name = self.labels[self.default_lang]
 
             return self._name
         except KeyError:
             return self.wikidata_id
-
-    @property
-    def languages(self) -> Set[str]:
-        """Returns a set of languages in which the entity has a transliteration."""
-
-        return self.alias_langs
 
     def instance_of(self, classes: Set[str]) -> bool:
         """Checks whether the record is an instance of a set of classes"""
@@ -82,9 +84,9 @@ class WikidataRecord:
             return {
                 "id": self.wikidata_id,
                 "name": self.name,
-                "aliases": self.aliases,
+                "labels": self.labels,
                 "instance_of": list(self.instance_ofs),
-                "languages": list(self.alias_langs),
+                "languages": list(self._languages),
             }
         else:
             return self.record

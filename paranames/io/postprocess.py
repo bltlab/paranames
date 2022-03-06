@@ -8,8 +8,6 @@ import pandas as pd
 from paranames.util import read, write
 from rich import print
 
-vote_aggregation_methods = set(["all", "any", "majority_vote", "none"])
-
 
 def keep_above_threshold(
     data: pd.DataFrame, language_column: str, threshold: int
@@ -21,6 +19,7 @@ def keep_above_threshold(
     )
 
     filtered_out_langs = data[~lang_big_enough][language_column].unique()
+
     for lang in filtered_out_langs:
         cnt = num_names_per_lang[lang]
         print(f'[postprocess] Filtered out: "{lang}" ({cnt} <= {threshold})')
@@ -122,20 +121,25 @@ def apply_entity_disambiguation_rules(
 
 
 def remove_parentheses(
-    data: pd.DataFrame, english_column: str, alias_column: str, regex: Pattern
+    data: pd.DataFrame, english_column: str, label_column: str, regex: Pattern
 ) -> pd.DataFrame:
     data[english_column] = data[english_column].apply(
         lambda e: regex.sub("", e).strip()
     )
-    data[alias_column] = data[alias_column].apply(lambda a: regex.sub("", a).strip())
+    data[label_column] = data[label_column].apply(lambda a: regex.sub("", a).strip())
+
     return data
 
+
 def collapse_language_codes(data, language_column: str = "language"):
-    print(f"[collapse_language_codes] Collapsing all language codes across {data.shape[0]}...")
+    print(
+        f"[collapse_language_codes] Collapsing all language codes across {data.shape[0]}..."
+    )
     collapsed = [l.split("-")[0] for l in data[language_column]]
     data[language_column] = collapsed
 
     return data
+
 
 @click.command()
 @click.option("--input-file", "-i")
@@ -143,7 +147,7 @@ def collapse_language_codes(data, language_column: str = "language"):
 @click.option("--io-format", "-f", default="tsv")
 @click.option("--id-column", "-id", default="wikidata_id")
 @click.option("--type-column", "-t", default="type")
-@click.option("--alias-column", "-a", default="alias")
+@click.option("--label-column", "-a", default="label")
 @click.option("--english-column", "-e", default="name")
 @click.option("--language-column", "-l", default="language")
 @click.option("--min-names-threshold", "-m", default=0)
@@ -156,13 +160,13 @@ def main(
     io_format,
     id_column,
     type_column,
-    alias_column,
+    label_column,
     english_column,
     language_column,
     min_names_threshold,
     should_disambiguate_entity_types,
     should_remove_parentheses,
-    should_collapse_languages
+    should_collapse_languages,
 ):
 
     # read in data
@@ -175,26 +179,29 @@ def main(
     data = data.rename(columns={english_column: "eng"})
 
     # drop languages with fewer than minimum threshold of names
+
     if min_names_threshold > 0:
         data = keep_above_threshold(data, language_column, min_names_threshold)
 
     # filter rows using entity disambiguation rules
+
     if should_disambiguate_entity_types:
         data = apply_entity_disambiguation_rules(
             data, id_column=id_column, type_column=type_column
         )
 
-    # remove parentheses from english and alias columns
+    # remove parentheses from english and label columns
+
     if should_remove_parentheses:
         re_parenthesis = re.compile(r"\(.*\)")
         data = remove_parentheses(
-            data, english_column="eng", alias_column=alias_column, regex=re_parenthesis
+            data, english_column="eng", label_column=label_column, regex=re_parenthesis
         )
 
     # collapse sub-languages into top-level language codes if needed
+
     if should_collapse_languages:
         data = collapse_language_codes(data, language_column=language_column)
-
 
     # write to disk
     write(data, output_file, io_format=io_format)
