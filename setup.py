@@ -16,8 +16,31 @@ def setup_package() -> None:
         packages=find_packages(include=("paranames", "paranames.*")),
         # Package type information
         package_data={"paranames": ["py.typed"]},
-        # 3.7 and up, but not Python 4
-        python_requires="~=3.7",
+        # Python 3.8
+        python_requires="==3.8",
+        install_requires=[
+            "attrs",
+            "black",
+            "click",
+            "csvkit",
+            "dask",
+            "dictances",
+            "editdistance",
+            "flake8",
+            "mypy",
+            "numpy",
+            "orjson",
+            "pandas",
+            "pyicu",
+            "pymongo",
+            "qwikidata",
+            "requests",
+            "rich",
+            "scipy",
+            "sklearn",
+            "tqdm",
+            "unicodeblock"
+        ],
         license="MIT",
         description="ParaNames",
         long_description=long_description,
