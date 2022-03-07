@@ -9,7 +9,7 @@ from tqdm import tqdm
 DEFAULT_MONGODB_PORT = 27617
 
 
-class ikidataRecord:
+class WikidataRecord:
     def __init__(
         self, record: dict, default_lang: str = "en", simple: bool = False
     ) -> None:
@@ -18,8 +18,8 @@ class ikidataRecord:
         self.default_lang = default_lang
         self.parse_ids()
         self.parse_instance_of()
-        self.parse_labels()
-        self.parse_languages()
+        self.parse_aliases()
+        self.parse_alias_langs()
         self.parse_ipa()
 
     def parse_ids(self) -> None:
@@ -36,44 +36,43 @@ class ikidataRecord:
             try:
                 self.instance_ofs = set(
                     iof["mainsnak"]["datavalue"]["value"]["id"]
-
                     for iof in self.record["claims"]["P31"]
                 )
             except KeyError:
                 self.instance_ofs = set()
 
-    def parse_labels(self) -> None:
+    def parse_aliases(self) -> None:
         if self.simple:
-            self.labels = self.record["labels"]
+            self.aliases = self.record["aliases"]
         else:
-            self.labels = {
+            self.aliases = {
                 lang: d["value"] for lang, d in self.record["labels"].items()
             }
 
-    def parse_languages(self) -> None:
+    def parse_alias_langs(self) -> None:
         if self.simple:
-            self._languages = self.record["languages"]
+            self.alias_langs = self.record["languages"]
         else:
-            self._languages = {lang for lang in self.labels}
+            self.alias_langs = {lang for lang in self.aliases}
 
     def parse_ipa(self) -> None:
         pass
 
     @property
-    def languages(self) -> Set[str]:
-        """Returns a set of languages in which the entity has a transliteration."""
-
-        return self._languages
-
-    @property
     def name(self) -> str:
         try:
             if not hasattr(self, "_name"):
-                self._name = self.labels[self.default_lang]
+                self._name = self.aliases[self.default_lang]
 
             return self._name
         except KeyError:
             return self.wikidata_id
+
+    @property
+    def languages(self) -> Set[str]:
+        """Returns a set of languages in which the entity has a transliteration."""
+
+        return self.alias_langs
 
     def instance_of(self, classes: Set[str]) -> bool:
         """Checks whether the record is an instance of a set of classes"""
@@ -85,9 +84,9 @@ class ikidataRecord:
             return {
                 "id": self.wikidata_id,
                 "name": self.name,
-                "labels": self.labels,
+                "aliases": self.aliases,
                 "instance_of": list(self.instance_ofs),
-                "languages": list(self._languages),
+                "languages": list(self.alias_langs),
             }
         else:
             return self.record
