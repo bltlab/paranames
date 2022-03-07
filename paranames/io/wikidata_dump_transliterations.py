@@ -39,7 +39,7 @@ def output_jsonl(
             {
                 "wikidata_id": wikidata_id,
                 "name": name,
-                "alias": alias,
+                "label": alias,
                 "language": lang,
                 "type": conll_type,
             }
@@ -66,7 +66,7 @@ def output_csv(
     writer = csv.DictWriter(
         f,
         delimiter=delimiter,
-        fieldnames=["wikidata_id", "name", "alias", "language", "type"],
+        fieldnames=["wikidata_id", "name", "label", "language", "type"],
         extrasaction="ignore",
     )
 
@@ -77,7 +77,7 @@ def output_csv(
         {
             "wikidata_id": wikidata_id,
             "name": name,
-            "alias": alias,
+            "label": alias,
             "language": lang,
             "type": conll_type,
         }
