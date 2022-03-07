@@ -5,6 +5,7 @@ import csv
 from collections import defaultdict
 from typing import IO, Iterable
 
+from tqdm import tqdm
 from pymongo import MongoClient
 import paranames.util.wikidata as w
 from paranames.util import orjson_dump
@@ -230,7 +231,7 @@ def main(
     results = (doc for doc in db.find(filter_dict))
 
     with resolve_output_file(output_file) as fout:
-        for ix, doc in enumerate(results):
+        for ix, doc in tqdm(enumerate(results)):
             if ix < num_docs:
                 output(
                     w.WikidataRecord(doc, simple=True),
