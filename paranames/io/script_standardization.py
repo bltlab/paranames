@@ -44,7 +44,7 @@ def validate_names(tuples, allowed_scripts, icu_mode=True, num_workers=60):
 
 
 def standardize_script_manual(
-    data, scripts_file, alias_column, language_column, num_workers, *args, **kwargs
+    data, scripts_file, label_column, language_column, num_workers, *args, **kwargs
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     scripts = read(scripts_file, "tsv")
     allowed_scripts_per_lang = {
@@ -54,7 +54,7 @@ def standardize_script_manual(
     }
 
     print(f"[standardize_script_manual] Creating tuples of (name, language)")
-    name_lang_tuples = zip(data[alias_column], data[language_column])
+    name_lang_tuples = zip(data[label_column], data[language_column])
 
     print(
         f"[standardize_script_manual] Creating valid name mask using {num_workers} workers"
@@ -80,7 +80,7 @@ def standardize_script_manual(
 @click.option("--io-format", "-f", default="tsv")
 @click.option("--id-column", "-id", default="wikidata_id")
 @click.option("--type-column", "-t", default="type")
-@click.option("--alias-column", "-a", default="alias")
+@click.option("--label-column", "-a", default="label")
 @click.option("--english-column", "-e", default="eng")
 @click.option("--language-column", "-l", default="language")
 @click.option("--num-workers", type=int, default=2)
@@ -99,7 +99,7 @@ def main(
     io_format,
     id_column,
     type_column,
-    alias_column,
+    label_column,
     english_column,
     language_column,
     num_workers,
@@ -121,7 +121,7 @@ def main(
         num_workers=num_workers,
         chunksize=chunksize,
         scripts_file=scripts_file,
-        alias_column=alias_column,
+        label_column=label_column,
     )
 
     if write_filtered_names:

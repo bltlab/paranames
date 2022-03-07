@@ -7,11 +7,11 @@ import dask.dataframe as dd
 import scipy.stats as sps
 
 
-def alias_script_tuples(f_cache):
+def label_script_tuples(f_cache):
     for line in f_cache:
         try:
-            alias, script = line.strip().split("\t")
-            yield alias, script
+            label, script = line.strip().split("\t")
+            yield label, script
         except:
             continue
 
@@ -28,14 +28,14 @@ def compute_entropy(series):
 @click.option(
     "--cache-path",
     required=True,
-    help="Path to cached alias -> script mappings",
+    help="Path to cached label -> script mappings",
 )
 @click.option("--io-format", "-f", default="tsv")
 @click.option("--num-workers", "-w", default=12, type=int)
 @click.option("--human-readable-langs-path", required=True)
 @click.option("--id-column", "-id", default="wikidata_id")
 @click.option("--type-column", "-t", default="type")
-@click.option("--alias-column", "-a", default="alias")
+@click.option("--label-column", "-a", default="label")
 @click.option("--english-column", "-e", default="name")
 @click.option("--language-column", "-l", default="language")
 def main(
@@ -47,7 +47,7 @@ def main(
     human_readable_langs_path: str,
     id_column: str,
     type_column: str,
-    alias_column: str,
+    label_column: str,
     english_column: str,
     language_column: str,
 ) -> None:
@@ -57,8 +57,8 @@ def main(
     # only csv/tsv supported for now
     assert io_format in ["csv", "tsv"]
 
-    alias_to_script = pd.read_csv(
-        cache_path, sep="\t", names=[alias_column, script_column]
+    label_to_script = pd.read_csv(
+        cache_path, sep="\t", names=[label_column, script_column]
     )
 
     with open(human_readable_langs_path, encoding="utf8") as f:
@@ -70,7 +70,7 @@ def main(
         lambda l: human_readable_names.get(l, l)
     )
 
-    data = pd.merge(data, alias_to_script, on=alias_column, how="left")
+    data = pd.merge(data, label_to_script, on=label_column, how="left")
 
     script_entropies = dd.from_pandas(
         data.groupby([language_column, "language_long"])[script_column]
