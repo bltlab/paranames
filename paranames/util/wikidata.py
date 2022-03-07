@@ -9,7 +9,7 @@ from tqdm import tqdm
 DEFAULT_MONGODB_PORT = 27617
 
 
-class WikidataRecord:
+class ikidataRecord:
     def __init__(
         self, record: dict, default_lang: str = "en", simple: bool = False
     ) -> None:
@@ -21,7 +21,6 @@ class WikidataRecord:
         self.parse_labels()
         self.parse_languages()
         self.parse_ipa()
-
 
     def parse_ids(self) -> None:
         self.wikidata_id = self.record["id"]
@@ -45,10 +44,10 @@ class WikidataRecord:
 
     def parse_labels(self) -> None:
         if self.simple:
-            self.labels = self.record["aliases"]
+            self.labels = self.record["labels"]
         else:
             self.labels = {
-                lang: d["value"] for lang, d in self.record["aliases"].items()
+                lang: d["value"] for lang, d in self.record["labels"].items()
             }
 
     def parse_languages(self) -> None:
