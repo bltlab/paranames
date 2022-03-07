@@ -29,7 +29,7 @@ recipes/ingest.sh \
 ## Dump all entities in all languages
 rich "[bold underline]Dumping all PER/LOC/ORG:[/]" -p
 recipes/dump.sh \
-    $langs $input_json $entity_types \
+    $langs $output_folder $entity_types \
     $db_name $collection_name \
     $should_collapse_languages \
     $n_workers
