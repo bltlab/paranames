@@ -1,3 +1,5 @@
+![](data/paranames_banner.png)
+
 # ParaNames: A multilingual resource for parallel names
 
 This repository contains releases for the ParaNames corpus, as introduced in
