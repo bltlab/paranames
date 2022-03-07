@@ -64,8 +64,8 @@ By default, only 1 CPU is used.
 
 Inside of the pipeline script, there are several options for customization:
 
-- Setting `should_lump_languages=yes` will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` will be converted to `kk`, `en-ca` to `en` etc.
+- Setting [`should_collapse_languages=yes`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh#L17) will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` will be converted to `kk`, `en-ca` to `en` etc.
 
-- Within [`recipes/dump.sh`](https://github.com/bltlab/paranames/blob/main/recipes/separate_folder_dump.sh), it is also possible to define languages to be excluded and whether entity types should be disambiguated. By default, no languages are excluded and no disambiguation is done.
+- Within [`recipes/dump.sh`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh), it is also possible to define languages to be excluded and whether entity types should be disambiguated. By default, no languages are excluded and no disambiguation is done.
 
 - After the pipeline completes, `<output_folder>` will contain one folder per language, inside of which is a TSV file containing the subset of names in that language. Combined TSVs with names in all languages are available in the `combined` folder.
