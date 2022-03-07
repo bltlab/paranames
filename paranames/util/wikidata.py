@@ -9,7 +9,7 @@ from tqdm import tqdm
 DEFAULT_MONGODB_PORT = 27617
 
 
-class ikidataRecord:
+class WikidataRecord:
     def __init__(
         self, record: dict, default_lang: str = "en", simple: bool = False
     ) -> None:
