@@ -12,7 +12,9 @@ db_name=paranames_db
 collection_name=paranames
 chunk_size=20000
 
-langs="all"
+# "all" for everything. alternatively: comma-separated list
+langs="all" 
+
 entity_types="PER,LOC,ORG"
 default_format="tsv"
 should_collapse_languages="no"
