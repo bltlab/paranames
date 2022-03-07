@@ -54,8 +54,11 @@ To create a corpus following our approach, follow the steps below:
 The call to `recipes/paranames_pipelin.sh` works as follows:
 
 ```
-recipes/paranames_pipeline.sh <path_to_extracted_json_dump> <output_folder>
+recipes/paranames_pipeline.sh <path_to_extracted_json_dump> <output_folder> <n_workers>
 ```
+
+Set the number of workers based on the number of CPUs your machine has.
+By default, only 1 CPU is used.
 
 ### Notes
 

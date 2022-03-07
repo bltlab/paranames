@@ -5,7 +5,7 @@ set -euo pipefail
 ## Command line arguments
 input_json=${1}
 output_folder=${2}
-n_workers=${3:-15}
+n_workers=${3:-1}
 
 ## Constants
 db_name=paranames_db
