@@ -1,9 +1,10 @@
-![](data/paranames_banner.png)
+<img src="data/paranames_banner.png"></img>
 
 # ParaNames: A multilingual resource for parallel names
 
-This repository contains releases for the ParaNames corpus, as introduced in
-[Sälevä, J. and Lignos, C., 2022. ParaNames: A Massively Multilingual Entity Name Corpus. arXiv preprint arXiv:2202.14035](https://arxiv.org/abs/2202.14035).
+This repository contains releases for the ParaNames corpus, consisting of parallel names of over 12 million named entities in over 400 languages.
+
+ParaNames was introduced in [Sälevä, J. and Lignos, C., 2022. ParaNames: A Massively Multilingual Entity Name Corpus. arXiv preprint arXiv:2202.14035](https://arxiv.org/abs/2202.14035).
 
 Please cite as:
 ```
