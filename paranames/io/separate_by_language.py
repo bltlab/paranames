@@ -1,3 +1,5 @@
+import multiprocessing as mp
+from functools import partial
 import pathlib
 import os
 
@@ -20,6 +22,19 @@ def get_output_filename(
     return pathlib.Path(output_path)
 
 
+def write_subset(lang_subset_tuple, input_file, use_subfolders, verbose, io_format):
+    lang, subset = lang_subset_tuple
+    output_file = get_output_filename(input_file, lang, use_subfolders)
+    output_folder = pathlib.Path(os.path.dirname(output_file))
+
+    if not output_folder.exists():
+        if verbose:
+            print(f"{output_folder} not found. Creating with mkdir...")
+        output_folder.mkdir()
+
+    write(subset, output_file, io_format)
+
+
 @click.command()
 @click.option("--lang-column", "-c", default="language", help="Language column")
 @click.option("--input-file", "-i", required=True)
@@ -37,22 +52,29 @@ def get_output_filename(
     help="Separate-language files should go in their own subfolders",
 )
 @click.option("--verbose", "-v", is_flag=True)
-def main(lang_column, input_file, io_format, use_subfolders, verbose):
+@click.option("--num-workers", default=1, type=int)
+def main(
+    lang_column, input_file, io_format, use_subfolders, verbose, num_workers
+) -> None:
 
     data = read(input_file, io_format)
 
-    for lang in data[lang_column].unique():
-        filtered = data[data[lang_column] == lang]
+    lang_subset_tuples = [(lang, df) for lang, df in data.groupby(lang_column)]
 
-        output_file = get_output_filename(input_file, lang, use_subfolders)
-        output_folder = pathlib.Path(os.path.dirname(output_file))
-
-        if not output_folder.exists():
-            if verbose:
-                print(f"{output_folder} not found. Creating with mkdir...")
-            output_folder.mkdir()
-
-        write(filtered, output_file, io_format)
+    _write_subset = partial(
+        write_subset,
+        input_file=input_file,
+        use_subfolders=use_subfolders,
+        verbose=verbose,
+        io_format=io_format,
+    )
+    if num_workers == 1:
+        for lang, filtered in lang_subset_tuples:
+            _write_subset((lang, filtered))
+    else:
+        with mp.Pool(num_workers) as pool:
+            print(f"Parallelizing output to {num_workers} workers")
+            pool.apply(_write_subset, lang_subset_tuples)
 
 
 if __name__ == "__main__":

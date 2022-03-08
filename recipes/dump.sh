@@ -129,10 +129,13 @@ standardize_script () {
 separate_by_language () {
     
     local filtered_file=$1
+    local num_workers=${2:-1}
+
     python paranames/io/separate_by_language.py \
         --input-file $filtered_file \
         --lang-column language \
         --io-format $default_format \
+        --num-workers $num_workers \
         --use-subfolders \
         --verbose
 }
@@ -176,7 +179,7 @@ standardize_script \
 # Step 5: Separate into subfolders by language
 echo "[5/5] Separate into subfolders by language..."
 echo "Destination: ${combined_script_standardized_tsv}"
-separate_by_language $combined_script_standardized_tsv
+separate_by_language $combined_script_standardized_tsv $num_workers
 
 mv --verbose ${output_folder}/{PER,LOC,ORG,paranames}*.tsv ${output_folder}/combined
 
