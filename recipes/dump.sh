@@ -11,8 +11,8 @@ usage () {
 langs="${1}"
 output_folder="${2}"
 entity_types=$(echo "${3:-PER,LOC,ORG}" | tr "," " ")
-db_name="${4:-wikidata_db}"
-collection_name="${5:-wikidata_simple}"
+db_name="${4:-paranames_db}"
+collection_name="${5:-paranames}"
 default_format="tsv"
 should_collapse_languages=${6:-no}
 
