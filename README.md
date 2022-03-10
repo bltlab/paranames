@@ -54,7 +54,7 @@ To create a corpus following our approach, follow the steps below:
 1. Download the latest Wikidata dump from the [Wikimedia page](https://dumps.wikimedia.org/wikidatawiki/entities/) and extract it. Note that this may take up several TB of disk space.
 2. Use `recipes/paranames_pipeline.sh` which ingests the Wikidata JSON to MongoDB and then dumps and postprocesses it to our final TSV resource.
 
-The call to `recipes/paranames_pipelin.sh` works as follows:
+The call to `recipes/paranames_pipeline.sh` works as follows:
 
 ```
 recipes/paranames_pipeline.sh <path_to_extracted_json_dump> <output_folder> <n_workers>
@@ -63,11 +63,16 @@ recipes/paranames_pipeline.sh <path_to_extracted_json_dump> <output_folder> <n_w
 Set the number of workers based on the number of CPUs your machine has.
 By default, only 1 CPU is used.
 
+The output folder will contain one subfolder per language, inside of which `paranames_<language_code>.tsv` can be found.
+The entire resource is located in `<output_folder>/combined/paranames.tsv`.
+
 ### Notes
 
 Inside of the pipeline script, there are several options for customization:
 
-- Setting [`should_collapse_languages=yes`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh#L17) will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` will be converted to `kk`, `en-ca` to `en` etc.
+- Setting [`should_collapse_languages=yes`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh#L16) will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` will be converted to `kk`, `en-ca` to `en` etc.
+
+- Setting [`should_keep_intermediate_files=yes`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh#L17) will cause intermediate files to be deleted. This includes the raw per-type TSV dumps (`{PER,LOC,ORG}.tsv`) from MongoDB, as well as outputs of `postprocess.py`.
 
 - Within [`recipes/dump.sh`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh), it is also possible to define languages to be excluded and whether entity types should be disambiguated. By default, no languages are excluded and no disambiguation is done.
 
