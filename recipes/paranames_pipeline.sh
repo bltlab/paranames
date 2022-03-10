@@ -30,7 +30,7 @@ recipes/ingest.sh \
     $n_workers
 
 ## Dump all entities in all languages
-rich "[bold underline]Dumping all PER/LOC/ORG:[/]" -p
+rich "[bold underline]Dumping all PER/LOC/ORG from ${db_name}.${collection_name}:[/]" -p
 recipes/dump.sh \
     $langs $output_folder $entity_types \
     $db_name $collection_name \
