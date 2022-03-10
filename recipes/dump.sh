@@ -173,12 +173,11 @@ echo "[5/5] Separate into subfolders by language..."
 echo "Destination: ${combined_script_standardized_tsv}"
 separate_by_language $combined_script_standardized_tsv
 
-mv --verbose ${output_folder}/{PER,LOC,ORG,combined,paranames}*.tsv ${output_folder}/combined
-
-if 
+mv --verbose ${output_folder}/{PER,LOC,ORG,paranames}*.tsv ${output_folder}/combined
 
 if [ "${should_keep_intermediate_files}" = "no" ]
 then
+    echo "Removing temporary files..."
     rm -vrf $intermediate_output_folder
     rm -vrf $output_folder/combined/{PER,LOC,ORG}.tsv
 fi
