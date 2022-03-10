@@ -18,6 +18,7 @@ langs="all"
 entity_types="PER,LOC,ORG"
 default_format="tsv"
 should_collapse_languages="no"
+should_keep_intermediate_files="no"
 
 ## Ingest input JSON
 rich "[bold underline]Ingesting input JSON:[/]" -p
@@ -34,4 +35,5 @@ recipes/dump.sh \
     $langs $output_folder $entity_types \
     $db_name $collection_name \
     $should_collapse_languages \
+    $should_keep_intermediate_files \
     $n_workers

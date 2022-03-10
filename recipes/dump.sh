@@ -15,10 +15,18 @@ db_name="${4:-paranames_db}"
 collection_name="${5:-paranames}"
 default_format="tsv"
 should_collapse_languages=${6:-no}
+should_keep_intermediate_files=${7:-no}
 
-num_workers=${7:-1}
+num_workers=${8:-1}
 
 extra_data_folder="${output_folder}"/extra_data
+
+if [ "${should_keep_intermediate_files}" = "yes" ]
+then
+    intermediate_output_folder=$output_folder
+else
+    intermediate_output_folder=$(mktemp -d paranames_intermediate_files_XXXXX)
+fi
 
 mkdir --verbose -p $output_folder/combined
 mkdir --verbose -p $extra_data_folder
@@ -143,18 +151,18 @@ done
 wait
 
 # Step 2: combine into one TSV
-combined_tsv="${output_folder}/combined_postprocessed.tsv"
+combined_tsv="${intermediate_output_folder}/combined_postprocessed.tsv"
 echo "[2/5] Combining TSV files together into $combined_tsv"
 combine_tsv_files ${output_folder}/*.tsv > $combined_tsv
 
 # Step 3: Apply post-processing steps
 echo "[3/5] Running postprocess.py"
-combined_postprocessed_tsv="${output_folder}/combined_postprocessed.tsv"
+combined_postprocessed_tsv="${intermediate_output_folder}/combined_postprocessed.tsv"
 postprocess $combined_tsv $combined_postprocessed_tsv $should_disambiguate_types $should_collapse_languages
 
 # Step 4: Script standardization
 echo "[4/5] Script standardization"
-combined_script_standardized_tsv="${output_folder}/combined_script_standardized.tsv"
+combined_script_standardized_tsv="${output_folder}/paranames.tsv"
 standardize_script \
     $combined_postprocessed_tsv \
     $combined_script_standardized_tsv \
@@ -165,4 +173,11 @@ echo "[5/5] Separate into subfolders by language..."
 echo "Destination: ${combined_script_standardized_tsv}"
 separate_by_language $combined_script_standardized_tsv
 
-mv --verbose ${output_folder}/{PER,LOC,ORG,combined}*.tsv ${output_folder}/combined
+mv --verbose ${output_folder}/{PER,LOC,ORG,combined,paranames}*.tsv ${output_folder}/combined
+
+if 
+
+if [ "${should_keep_intermediate_files}" = "no" ]
+then
+    rm -vrf $intermediate_output_folder
+fi
