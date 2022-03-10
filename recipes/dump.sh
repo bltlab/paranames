@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage () {
-    echo "Usage: bash dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple COLLAPSE_LANGUAGES=no NUM_WORKERS=1]"
+    echo "Usage: bash dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1]"
 }
 
 [ $# -lt 4 ] && usage && exit 1
@@ -25,7 +25,7 @@ if [ "${should_keep_intermediate_files}" = "yes" ]
 then
     intermediate_output_folder=$output_folder
 else
-    intermediate_output_folder=$(mktemp -d paranames_intermediate_files_XXXXX)
+    intermediate_output_folder=$(mktemp -d /tmp/paranames_intermediate_files_XXXXX)
 fi
 
 mkdir --verbose -p $output_folder/combined
