@@ -180,4 +180,5 @@ if
 if [ "${should_keep_intermediate_files}" = "no" ]
 then
     rm -vrf $intermediate_output_folder
+    rm -vrf $output_folder/combined/{PER,LOC,ORG}.tsv
 fi
