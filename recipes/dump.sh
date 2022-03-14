@@ -34,8 +34,13 @@ mkdir --verbose -p $extra_data_folder
 # NOTE: edit this to increase/decrease threshold for excluding small languages
 default_name_threshold=1
 
-# NOTE: add comma separted list here to exclude languages
-exclude_these_langs=""
+
+# The default languages to exclude are codes that appear in Wikidata but 
+# do not have a language code listed here:
+# https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all
+
+# NOTE: change this comma separted list here to exclude certain languages
+exclude_these_langs="bag,bas,bkm,blk,gur"
 
 # Change to "yes" to disambiguate entity types
 should_disambiguate_types="no"
