@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-HUMAN_READABLE_LANGS_PATH="$HOME/paranames/data/human_readable_lang_names_from_sparql.json"
+HUMAN_READABLE_LANGS_PATH="$HOME/paranames/data/human_readable_lang_names.json"
 
 usage () {
     echo "Usage: bash ./script_analysis.sh TSV_PATH OUTPUT_FILE LABEL_COL_IX LANG_COL_IX"
