@@ -91,7 +91,7 @@ def standardize_script_manual(
 @click.option(
     "--scripts-file",
     "-s",
-    default="~/paranames/data/scripts_to_keep.tsv",
+    default="data/scripts_to_keep.tsv",
 )
 def main(
     input_file,
