@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 
-from typing import Pattern
+from typing import Pattern, Union
+from pathlib import Path
 import re
 
 import click
+import orjson
 import pandas as pd
 from paranames.util import read, write
 from rich import print
+from rich.progress import track
 
 
 def keep_above_threshold(
@@ -82,6 +85,7 @@ def apply_entity_disambiguation_rules(
     # compose the above two relations
     id_to_canonical_type = {
         _id: entity_disambiguation_rules.get(type_str)
+
         for _id, type_str in id_to_types.items()
     }
 
@@ -93,6 +97,7 @@ def apply_entity_disambiguation_rules(
     # put the old non-ambiguous types back in
     new_types = [
         old_type if new_type is None else new_type
+
         for old_type, new_type in zip(data.type, canonical_types)
     ]
 
@@ -141,6 +146,24 @@ def collapse_language_codes(data, language_column: str = "language"):
     return data
 
 
+def rename_language_codes(
+    data: pd.DataFrame,
+    language_column: str,
+    languages_to_rename_path: Union[Path, str],
+) -> pd.DataFrame:
+    print("[rename_language_codes] Renaming language codes...")
+    with open(languages_to_rename_path, encoding="utf-8") as fin:
+        rewrite_these = orjson.loads(fin.read())
+
+    data[language_column] = [
+        rewrite_these.get(lc, lc)
+
+        for lc in track(data[language_column], total=data.shape[0])
+    ]
+
+    return data
+
+
 @click.command()
 @click.option("--input-file", "-i")
 @click.option("--output-file", "-o")
@@ -151,6 +174,11 @@ def collapse_language_codes(data, language_column: str = "language"):
 @click.option("--english-column", "-e", default="name")
 @click.option("--language-column", "-l", default="language")
 @click.option("--min-names-threshold", "-m", default=0)
+@click.option(
+    "--languages-to-rename-path",
+    default="./data/language_codes_to_rename.json",
+    type=click.Path(exists=True, dir_okay=False, readable=True),
+)
 @click.option("--should-disambiguate-entity-types", "-d", is_flag=True, default=False)
 @click.option("--should-remove-parentheses", "-r", is_flag=True, default=False)
 @click.option("--should-collapse-languages", "-c", is_flag=True, default=False)
@@ -164,6 +192,7 @@ def main(
     english_column,
     language_column,
     min_names_threshold,
+    languages_to_rename_path,
     should_disambiguate_entity_types,
     should_remove_parentheses,
     should_collapse_languages,
@@ -177,6 +206,13 @@ def main(
 
     # change <english_column> to "eng"
     data = data.rename(columns={english_column: "eng"})
+
+    # rename certain language codes
+    data = rename_language_codes(
+        data,
+        language_column=language_column,
+        languages_to_rename_path=languages_to_rename_path,
+    )
 
     # drop languages with fewer than minimum threshold of names
 
