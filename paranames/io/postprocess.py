@@ -85,7 +85,6 @@ def apply_entity_disambiguation_rules(
     # compose the above two relations
     id_to_canonical_type = {
         _id: entity_disambiguation_rules.get(type_str)
-
         for _id, type_str in id_to_types.items()
     }
 
@@ -97,7 +96,6 @@ def apply_entity_disambiguation_rules(
     # put the old non-ambiguous types back in
     new_types = [
         old_type if new_type is None else new_type
-
         for old_type, new_type in zip(data.type, canonical_types)
     ]
 
@@ -155,12 +153,15 @@ def rename_language_codes(
     with open(languages_to_rename_path, encoding="utf-8") as fin:
         rewrite_these = orjson.loads(fin.read())
 
-    data[language_column] = [
-        rewrite_these.get(lc, lc)
+    new_lang_column = []
+    renamed = set()
+    for lc in track(data[language_column], total=data.shape[0]):
+        if lc in rewrite_these and lc not in renamed:
+            print(f"[collapse_language_codes] Renaming {lc} to {rewrite_these[lc]}")
+            renamed.add(lc)
+        new_lang_column.append(rewrite_these.get(lc, lc))
 
-        for lc in track(data[language_column], total=data.shape[0])
-    ]
-
+    data[language_column] = new_lang_column
     return data
 
 
