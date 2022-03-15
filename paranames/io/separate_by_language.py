@@ -4,6 +4,7 @@ import pathlib
 import os
 
 from paranames.util import read, write
+from rich import print
 import click
 
 
@@ -61,20 +62,26 @@ def main(
 
     lang_subset_tuples = [(lang, df) for lang, df in data.groupby(lang_column)]
 
-    _write_subset = partial(
-        write_subset,
-        input_file=input_file,
-        use_subfolders=use_subfolders,
-        verbose=verbose,
-        io_format=io_format,
-    )
     if num_workers == 1:
         for lang, filtered in lang_subset_tuples:
-            _write_subset((lang, filtered))
+            write_subset(
+                (lang, filtered),
+                input_file=input_file,
+                use_subfolders=use_subfolders,
+                verbose=verbose,
+                io_format=io_format,
+            )
     else:
+        _write_subset = partial(
+            write_subset,
+            input_file=input_file,
+            use_subfolders=use_subfolders,
+            verbose=verbose,
+            io_format=io_format,
+        )
         with mp.Pool(num_workers) as pool:
             print(f"Parallelizing output to {num_workers} workers")
-            pool.apply(_write_subset, lang_subset_tuples)
+            pool.map(_write_subset, lang_subset_tuples)
 
 
 if __name__ == "__main__":
