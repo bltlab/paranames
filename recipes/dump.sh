@@ -40,7 +40,7 @@ default_name_threshold=1
 # https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all
 
 # NOTE: change this comma separted list here to exclude certain languages
-exclude_these_langs="bag,bas,bkm,blk,gur"
+exclude_these_langs="bag,bas,bkm,blk,gur,mcn,nyn"
 
 # Change to "yes" to disambiguate entity types
 should_disambiguate_types="no"
