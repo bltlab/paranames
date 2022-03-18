@@ -20,6 +20,8 @@ def read(
     io_format: str,
     typ: str = "frame",
     chunksize: Union[int, None] = None,
+    column_names: Optional[List[str]] = None,
+    **kwargs,
 ) -> pd.DataFrame:
     if io_format in ["csv", "tsv"]:
         return pd.read_csv(
@@ -48,6 +50,8 @@ def read(
                 ]
             ),
             keep_default_na=False,
+            names=column_names,
+            **kwargs,
         )
     elif io_format == "jsonl":
         return pd.read_json(
@@ -57,9 +61,12 @@ def read(
             typ=typ,
             lines=True,
             chunksize=chunksize,
+            **kwargs,
         )
     elif io_format == "json":
-        return pd.read_json(input_file, encoding="utf-8", typ=typ, chunksize=chunksize)
+        return pd.read_json(
+            input_file, encoding="utf-8", typ=typ, chunksize=chunksize, **kwargs
+        )
 
 
 def write_csv_writer(
