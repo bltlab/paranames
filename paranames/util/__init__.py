@@ -31,7 +31,6 @@ def read(
             chunksize=chunksize,
             na_values=set(
                 [
-                    "",
                     "#N/A",
                     "#N/A N/A",
                     "#NA",

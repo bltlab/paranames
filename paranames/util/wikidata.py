@@ -73,7 +73,7 @@ class WikidataRecord:
 
             return self._name
         except KeyError:
-            return self.wikidata_id
+            return ""
 
     def instance_of(self, classes: Set[str]) -> bool:
         """Checks whether the record is an instance of a set of classes"""
