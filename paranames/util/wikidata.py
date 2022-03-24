@@ -6,6 +6,7 @@ from pymongo import MongoClient
 from paranames.util import orjson_dump
 from tqdm import tqdm
 
+
 class WikidataRecord:
     def __init__(
         self, record: dict, default_lang: str = "en", simple: bool = False
@@ -33,7 +34,6 @@ class WikidataRecord:
             try:
                 self.instance_ofs = set(
                     iof["mainsnak"]["datavalue"]["value"]["id"]
-
                     for iof in self.record["claims"]["P31"]
                 )
             except KeyError:
@@ -97,39 +97,6 @@ class WikidataRecord:
 
     def __repr__(self) -> str:
         return str(self)
-
-
-class WikidataMongoDB:
-    """Class for interfacing with Wikidata dump ingested into a MongoDB instance."""
-
-    def __init__(
-        self,
-        database_name: str = "wikidata_db",
-        collection_name: str = "wikidata",
-    ) -> None:
-        self.database_name = database_name
-        self.collection_name = collection_name
-        self.client = MongoClient(port=DEFAULT_MONGODB_PORT)
-        self.collection = self.client[self.database_name][self.collection_name]
-
-    def find_matching_docs(
-        self,
-        filter_dict: Union[dict, None] = None,
-        n: Union[float, int] = math.inf,
-        as_record: bool = False,
-        simple: bool = False,
-    ) -> Generator[Union[Dict[str, Any], WikidataRecord], None, None]:
-        """Generator to yield at most n documents matching conditions in filter_dict."""
-
-        if filter_dict is None:
-            # by default, find everything that is an instance of something
-            filter_dict = {"claims.P31": {"$exists": True}}
-
-        for ix, doc in enumerate(self.collection.find(filter_dict)):
-            if ix < n:
-                yield WikidataRecord(doc, simple=simple) if as_record else doc
-            else:
-                break
 
 
 class WikidataMongoIngesterWorker:
