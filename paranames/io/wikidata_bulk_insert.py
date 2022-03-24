@@ -2,16 +2,16 @@
 
 import math
 import multiprocessing as mp
+import functools as ft
 
 import click
 from paranames.util.wikidata import (
     WikidataMongoIngesterWorker,
-    DEFAULT_MONGODB_PORT,
 )
 from pymongo import MongoClient
 
 
-def use_single_worker(worker, port=DEFAULT_MONGODB_PORT):
+def use_single_worker(worker, port):
     client = MongoClient(port=port)
     worker.establish_mongo_client(client)
     worker()
@@ -23,6 +23,7 @@ def use_single_worker(worker, port=DEFAULT_MONGODB_PORT):
 @click.option(
     "--collection-name", default="parallel_ingest_test", help="Collection name"
 )
+@click.option("--port", help="Port of MongoDB instance")
 @click.option("--num-workers", "-w", type=int, help="Number of workers")
 @click.option("--cache-size", "-c", type=int, default=1000, help="Cache size")
 @click.option(
@@ -42,6 +43,7 @@ def main(
     dump_file,
     database_name,
     collection_name,
+    port,
     num_workers,
     cache_size,
     max_docs,
@@ -62,11 +64,12 @@ def main(
             debug=debug,
             simple_records=simple_records,
         )
+
         for i in range(1, num_workers + 1)
     ]
 
     with mp.Pool(processes=num_workers) as pool:
-        pool.map(use_single_worker, workers)
+        pool.map(ft.partial(use_single_worker, port=port), workers)
 
     # finally non-parallel error logging
     print("JSON decode error summary:")

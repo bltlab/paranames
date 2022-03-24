@@ -6,9 +6,6 @@ from pymongo import MongoClient
 from paranames.util import orjson_dump
 from tqdm import tqdm
 
-DEFAULT_MONGODB_PORT = 27617
-
-
 class WikidataRecord:
     def __init__(
         self, record: dict, default_lang: str = "en", simple: bool = False
