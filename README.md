@@ -68,7 +68,10 @@ The entire resource is located in `<output_folder>/combined/paranames.tsv`.
 
 ### Notes
 
-Inside of the pipeline script, there are several options for customization:
+
+ParaNames offers several options for customization:
+
+- If your MongoDB instance uses a non-standard port, you should change the value of [`mongodb_port`](https://github.com/bltlab/paranames/blob/main/recipes/paranames_pipeline.sh#L13) accordingly inside `paranames_pipeline.sh`.
 
 - Setting [`should_collapse_languages=yes`](https://github.com/bltlab/paranames/blob/main/recipes/dump.sh#L17) will cause Wikimedia language codes to be "collapsed" to the top-level Wikimedia language code, i.e. `kk-cyrl` will be converted to `kk`, `en-ca` to `en` etc.
 
