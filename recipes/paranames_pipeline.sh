@@ -8,10 +8,10 @@ output_folder=${2}
 n_workers=${3:-1}
 
 ## Constants
-db_name=paranames_db
+db_name=paranames_db_022822
 collection_name=paranames
-mongodb_port=27017
-chunk_size=20000
+mongodb_port=27617
+chunk_size=50000
 
 # "all" for everything. alternatively: comma-separated list
 langs="all" 
