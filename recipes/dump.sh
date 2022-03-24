@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage () {
-    echo "Usage: bash dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1]"
+    echo "Usage: bash dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple MONGODB_PORT=27017 COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1]"
 }
 
 [ $# -lt 4 ] && usage && exit 1
@@ -13,11 +13,12 @@ output_folder="${2}"
 entity_types=$(echo "${3:-PER,LOC,ORG}" | tr "," " ")
 db_name="${4:-paranames_db}"
 collection_name="${5:-paranames}"
+mongodb_port="${6:-27017}"
+should_collapse_languages=${7:-no}
+should_keep_intermediate_files=${8:-no}
 default_format="tsv"
-should_collapse_languages=${6:-no}
-should_keep_intermediate_files=${7:-no}
 
-num_workers=${8:-1}
+num_workers=${9:-1}
 
 extra_data_folder="${output_folder}"/extra_data
 
@@ -51,6 +52,7 @@ dump () {
     local langs=$2
     local db_name=$3
     local collection_name=$4
+    local mongodb_port=$5
     local output="${output_folder}/${conll_type}.tsv"
 
     if [ "${langs}" = "all" ]
@@ -80,6 +82,7 @@ dump () {
         -d "tab" \
         --database-name "${db_name}" \
         --collection-name "${collection_name}" \
+        --mongodb-port "${mongodb_port}" \
         -o - $exclude_langs_flag > "${output}"
 
 }
@@ -154,7 +157,7 @@ combine_tsv_files () {
 echo "[1/5] Extract from MongoDB..."
 for conll_type in $entity_types
 do
-    dump $conll_type $langs $db_name $collection_name &
+    dump $conll_type $langs $db_name $collection_name $mongodb_port &
 done
 wait
 
