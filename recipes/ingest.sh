@@ -36,7 +36,7 @@ python $IO_SCRIPT_FOLDER/wikidata_bulk_insert.py \
 # create indices
 for field in "instance_of" "languages" "id" "name"
 do
-    python $IO_SCRIPT_FOLDER/create_index.py -db "${DB_NAME}" -c "${COLL_NAME}" -f "${field}"
+    python $IO_SCRIPT_FOLDER/create_index.py -db "${DB_NAME}" -c "${COLL_NAME}" -f "${field}" --mongodb-port "${MONGO_PORT}"
 done
 
 # create "subclasses" collection
