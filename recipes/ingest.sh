@@ -22,6 +22,7 @@ COLL_NAME=${3}
 CHUNKSIZE=${4:-10000}
 DEFAULT_CPUS=$(nproc)
 N_WORKERS=${5:-$DEFAULT_CPUS}
+MONGO_PORT=${6:-27017}
 
 # ingest into mongo db
 python $IO_SCRIPT_FOLDER/wikidata_bulk_insert.py \
@@ -29,6 +30,7 @@ python $IO_SCRIPT_FOLDER/wikidata_bulk_insert.py \
     --database-name "${DB_NAME}" \
     --collection-name "${COLL_NAME}" \
     -w ${N_WORKERS} -c ${CHUNKSIZE} \
+    --port ${MONGO_PORT} \
     --simple-records --debug
 
 # create indices

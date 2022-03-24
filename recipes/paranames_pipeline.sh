@@ -10,6 +10,7 @@ n_workers=${3:-1}
 ## Constants
 db_name=paranames_db
 collection_name=paranames
+mongodb_port=27017
 chunk_size=20000
 
 # "all" for everything. alternatively: comma-separated list
@@ -27,7 +28,8 @@ recipes/ingest.sh \
     $db_name \
     $collection_name \
     $chunk_size \
-    $n_workers
+    $n_workers \
+    $mongodb_port
 
 ## Dump all entities in all languages
 rich "[bold underline]Dumping all PER/LOC/ORG from ${db_name}.${collection_name}:[/]" -p
