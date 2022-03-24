@@ -35,7 +35,7 @@ recipes/ingest.sh \
 rich "[bold underline]Dumping all PER/LOC/ORG from ${db_name}.${collection_name}:[/]" -p
 recipes/dump.sh \
     $langs $output_folder $entity_types \
-    $db_name $collection_name \
+    $db_name $collection_name $mongodb_port \
     $should_collapse_languages \
     $should_keep_intermediate_files \
     $n_workers
