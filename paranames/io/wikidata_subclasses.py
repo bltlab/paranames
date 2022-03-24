@@ -29,7 +29,7 @@ def grab_subclasses(entity_id: str) -> Dict[str, Any]:
 )
 @click.option("--database-name", "-db", required=True)
 @click.option("--collection-name", "-c", required=True)
-@click.option("--mongodb-port", "-p", required=True)
+@click.option("--mongodb-port", "-p", required=True, type=int)
 @click.option("--to-stdout", is_flag=True)
 def main(entity_ids, database_name, collection_name, mongodb_port, to_stdout) -> None:
 
