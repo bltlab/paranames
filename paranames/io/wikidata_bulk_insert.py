@@ -11,8 +11,8 @@ from paranames.util.wikidata import (
 from pymongo import MongoClient
 
 
-def use_single_worker(worker, port):
-    client = MongoClient(port=port)
+def use_single_worker(worker, mongodb_port):
+    client = MongoClient(port=mongodb_port)
     worker.establish_mongo_client(client)
     worker()
 
@@ -23,7 +23,7 @@ def use_single_worker(worker, port):
 @click.option(
     "--collection-name", default="parallel_ingest_test", help="Collection name"
 )
-@click.option("--port", help="Port of MongoDB instance")
+@click.option("--mongodb-port", help="Port of MongoDB instance", type=int)
 @click.option("--num-workers", "-w", type=int, help="Number of workers")
 @click.option("--cache-size", "-c", type=int, default=1000, help="Cache size")
 @click.option(
@@ -43,7 +43,7 @@ def main(
     dump_file,
     database_name,
     collection_name,
-    port,
+    mongodb_port,
     num_workers,
     cache_size,
     max_docs,
@@ -69,7 +69,7 @@ def main(
     ]
 
     with mp.Pool(processes=num_workers) as pool:
-        pool.map(ft.partial(use_single_worker, port=port), workers)
+        pool.map(ft.partial(use_single_worker, mongodb_port=mongodb_port), workers)
 
     # finally non-parallel error logging
     print("JSON decode error summary:")

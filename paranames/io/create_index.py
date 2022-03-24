@@ -9,7 +9,7 @@ import click
 @click.option("--database-name", "-db", default="wikidata_db")
 @click.option("--collection-name", "-c", default="wikidata_simple")
 @click.option("--index-field", "-f", required=True)
-@click.option("--mongodb-port", "-p", type=int, default=w.DEFAULT_MONGODB_PORT)
+@click.option("--mongodb-port", "-p", type=int)
 def main(
     database_name: str,
     collection_name: str,

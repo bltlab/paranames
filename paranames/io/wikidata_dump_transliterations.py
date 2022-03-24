@@ -117,7 +117,6 @@ conll_type_to_wikidata_id = {"PER": "Q5", "LOC": "Q82794", "ORG": "Q43229"}
 @click.option(
     "--mongodb-port",
     type=int,
-    default=w.DEFAULT_MONGODB_PORT,
     help="MongoDB port",
 )
 @click.option("--database-name", default="wikidata_db", help="Database name")
