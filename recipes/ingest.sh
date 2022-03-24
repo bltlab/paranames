@@ -30,7 +30,7 @@ python $IO_SCRIPT_FOLDER/wikidata_bulk_insert.py \
     --database-name "${DB_NAME}" \
     --collection-name "${COLL_NAME}" \
     -w ${N_WORKERS} -c ${CHUNKSIZE} \
-    --port ${MONGO_PORT} \
+    --mongodb-port ${MONGO_PORT} \
     --simple-records --debug
 
 # create indices
@@ -42,4 +42,4 @@ done
 # create "subclasses" collection
 python $IO_SCRIPT_FOLDER/wikidata_subclasses.py \
     --entity-ids "Q43229,Q5,Q82794" \
-    -db ${DB_NAME} -c subclasses
+    -db ${DB_NAME} -c subclasses -p ${MONGO_PORT}
