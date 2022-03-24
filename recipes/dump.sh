@@ -67,7 +67,6 @@ dump () {
     if [ -z "${exclude_these_langs}" ]
     then
         echo "[INFO] No languages being excluded."
-        #exclude_langs_flag="-L en"
         exclude_langs_flag=""
     else
         echo "[INFO] Excluding ${exclude_these_langs//,/, }."
