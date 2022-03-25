@@ -1,4 +1,11 @@
+import csv
+import itertools as it
+import re
+import subprocess
+import tempfile as tf
+import unicodedata as ud
 from collections import Counter
+from pathlib import Path
 from typing import (
     Generator,
     List,
@@ -10,17 +17,11 @@ from typing import (
     Iterable,
     Optional,
 )
-from pathlib import Path
-import itertools as it
-import tempfile as tf
-import subprocess
-import csv
-import re
-import unicodedata as ud
-from unicodeblock import blocks
-from tqdm import tqdm
-import pandas as pd
+
 import icu
+import pandas as pd
+from tqdm import tqdm
+from unicodeblock import blocks
 
 
 class UnicodeAnalyzer:

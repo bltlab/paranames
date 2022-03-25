@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 
-from typing import Pattern, Union
-from pathlib import Path
 import re
+from pathlib import Path
+from typing import Pattern, Union
 
 import click
 import orjson
 import pandas as pd
-from paranames.util import read, write
 from rich import print
 from rich.progress import track
+
+from paranames.util import read, write
 
 
 def keep_above_threshold(

@@ -8,10 +8,10 @@ Get Wikidata subclass ontology as JSON and insert them to MongoDB
 from typing import Dict, Any
 
 import click
+from pymongo import MongoClient
 from qwikidata.sparql import get_subclasses_of_item
 
 from paranames.util import orjson_dump
-from pymongo import MongoClient
 
 
 def grab_subclasses(entity_id: str) -> Dict[str, Any]:

@@ -1,10 +1,11 @@
-import orjson
 import math
-
 from typing import Generator, Set, List, Union, Dict, Any
+
+import orjson
 from pymongo import MongoClient
-from paranames.util import orjson_dump
 from tqdm import tqdm
+
+from paranames.util import orjson_dump
 
 
 class WikidataRecord:

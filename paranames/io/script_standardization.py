@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 
-from typing import Dict, Tuple, Generator, Any, Iterable
+import multiprocessing as mp
+import tempfile
 from functools import partial
 from pathlib import Path
-import tempfile
-import multiprocessing as mp
+from typing import Dict, Tuple
 
 import click
 import pandas as pd
 from rich import print
-from paranames.util import read, write
+
 import paranames.util.script as s
+from paranames.util import read, write
 
 
 def validate_name(

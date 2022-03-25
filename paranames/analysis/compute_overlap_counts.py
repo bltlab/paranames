@@ -4,9 +4,10 @@ from collections import defaultdict, Counter
 from typing import Dict, Set, DefaultDict
 
 import click
-from paranames.util import read, orjson_dump
 from rich import print
 from rich.progress import track
+
+from paranames.util import read, orjson_dump
 
 
 def compute_overlap_counts(

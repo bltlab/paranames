@@ -1,10 +1,10 @@
-import pandas as pd
 import click
+import dask.dataframe as dd
 import orjson
+import pandas as pd
+import scipy.stats as sps
 
 from paranames.util import read
-import dask.dataframe as dd
-import scipy.stats as sps
 
 
 def label_script_tuples(f_cache):

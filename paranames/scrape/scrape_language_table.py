@@ -3,6 +3,7 @@ import sys
 import click
 import pandas as pd
 from qwikidata.sparql import return_sparql_query_results
+
 from paranames.util import orjson_dump
 
 

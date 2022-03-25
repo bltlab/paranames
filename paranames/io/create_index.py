@@ -1,8 +1,9 @@
 import time
 
-from pymongo import MongoClient
-import paranames.util.wikidata as w
 import click
+from pymongo import MongoClient
+
+import paranames.util.wikidata as w
 
 
 @click.command()

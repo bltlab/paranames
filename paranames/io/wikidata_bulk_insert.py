@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
+import functools as ft
 import math
 import multiprocessing as mp
-import functools as ft
 
 import click
+from pymongo import MongoClient
+
 from paranames.util.wikidata import (
     WikidataMongoIngesterWorker,
 )
-from pymongo import MongoClient
 
 
 def use_single_worker(worker, mongodb_port):

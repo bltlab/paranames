@@ -1,15 +1,16 @@
-import sys
-import os
-import math
 import csv
+import math
+import os
+import sys
 from collections import defaultdict
 from typing import IO, Iterable
 
-from tqdm import tqdm
+import click
 from pymongo import MongoClient
+from tqdm import tqdm
+
 import paranames.util.wikidata as w
 from paranames.util import orjson_dump
-import click
 
 
 def output_jsonl(

@@ -1,11 +1,12 @@
 import multiprocessing as mp
-from functools import partial
-import pathlib
 import os
+import pathlib
+from functools import partial
+
+import click
+from rich import print
 
 from paranames.util import read, write
-from rich import print
-import click
 
 
 def get_output_filename(

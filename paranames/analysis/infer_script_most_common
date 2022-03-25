@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
-from paranames.util.script import UnicodeAnalyzer
 import click
 import icu
+
+from paranames.util.script import UnicodeAnalyzer
 
 
 @click.command()
