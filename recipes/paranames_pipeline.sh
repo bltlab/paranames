@@ -22,7 +22,7 @@ should_collapse_languages="no"
 should_keep_intermediate_files="no"
 
 ## Ingest input JSON
-rich "[bold underline]Ingesting input JSON:[/]" -p
+python -m rich "[bold underline]Ingesting input JSON:[/]" -p
 recipes/ingest.sh \
     $input_json \
     $db_name \
@@ -32,7 +32,7 @@ recipes/ingest.sh \
     $mongodb_port
 
 ## Dump all entities in all languages
-rich "[bold underline]Dumping all PER/LOC/ORG from ${db_name}.${collection_name}:[/]" -p
+python -m rich "[bold underline]Dumping all PER/LOC/ORG from ${db_name}.${collection_name}:[/]" -p
 recipes/dump.sh \
     $langs $output_folder $entity_types \
     $db_name $collection_name $mongodb_port \
