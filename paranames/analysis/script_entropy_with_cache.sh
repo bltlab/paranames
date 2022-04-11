@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-HUMAN_READABLE_LANGS_PATH="$HOME/paranames/data/human_readable_lang_names.json"
 
 usage () {
     echo "Usage: bash ./script_analysis.sh TSV_PATH OUTPUT_FILE LABEL_COL_IX LANG_COL_IX"
@@ -38,6 +37,7 @@ DUMP=$1
 OUTPUT_FILE=$2
 LABEL_COL_IX=${3:-3}
 LANG_COL_IX=${4:-4}
+HUMAN_READABLE_LANGS_PATH="${5:-data/human_readable_lang_names.json}"
 
 ## use fast command line tools to cache all labels and scripts in a temp directory
 TMPDIR=$(mktemp -d)
