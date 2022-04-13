@@ -1,17 +1,35 @@
 #!/usr/bin/env python
 
 from collections import defaultdict, Counter
-from typing import Iterable, Dict
+from typing import Iterable, Dict, Union
+from pathlib import Path
 import sys
 
 import click
 import orjson
 import pymongo
 from tqdm import tqdm
-from paranames.util import orjson_dump
+from rich import print
+from paranames.util import orjson_dump, write
+import pandas as pd
+from qwikidata.linked_data_interface import get_entity_dict_from_api
 
 
-def look_up_names(
+def qwikidata_fallback(wikidata_id: Union[str, int]) -> str:
+    result = get_entity_dict_from_api(str(wikidata_id))
+    labels = result["labels"]
+
+    # Grab English label if it exists, fall back to first available lang
+    try:
+        lang = "en" if "en" in result else list(labels).pop(0)
+
+        return labels[lang]["value"]
+    except IndexError:
+        # Ultimate fallback: wikidata id
+        return str(wikidata_id)
+
+
+def look_up_names_from_mongodb(
     names_to_look_up: Iterable[str],
     mongodb_port: int,
     db_name: str,
@@ -37,12 +55,16 @@ def look_up_names(
 @click.command()
 @click.option(
     "--input-file",
-    type=click.Path(readable=True, dir_okay=False, file_okay=True, allow_dash=True),
+    type=click.Path(
+        readable=True, dir_okay=False, file_okay=True, allow_dash=True, path_type=Path
+    ),
     required=True,
 )
 @click.option(
     "--output-folder",
-    type=click.Path(writable=True, dir_okay=True, file_okay=False, allow_dash=False),
+    type=click.Path(
+        writable=True, dir_okay=True, file_okay=False, allow_dash=False, path_type=Path
+    ),
     required=True,
 )
 @click.option("--mongodb-port", required=True, type=int)
@@ -70,7 +92,6 @@ def main(
     instance_ofs_per_type = defaultdict(Counter)
     instance_ofs_human_readable = defaultdict(Counter)
     look_up_these = set()
-    overlap_statistics_output_file = Path(output_folder) / "overlap_statistics.json"
 
     with click.open_file(input_file, encoding="utf-8") as fin:
         for line in tqdm(fin, desc="Reading lines from JSONL"):
@@ -88,20 +109,22 @@ def main(
         f"Querying {db_name}.{collection_name} for human-readable entity names...",
         file=sys.stderr,
     )
-    id_to_name = look_up_names(
+    id_to_name = look_up_names_from_mongodb(
         look_up_these,
         mongodb_port=mongodb_port,
         db_name=db_name,
         collection_name=collection_name,
     )
 
-    for conll_type, counter in tqdm(
-        instance_ofs_per_type.items(),
-        desc="Converting instance-ofs to human readable form",
-    ):
+    for conll_type, counter in instance_ofs_per_type.items():
         new_counter = Counter()
-        for wikidata_id, count in counter.items():
-            new_counter[id_to_name.get(wikidata_id, wikidata_id)] = count
+        for wikidata_id, count in tqdm(
+            counter.items(),
+            desc=f"[{conll_type}] Converting instance-ofs to human readable form",
+        ):
+            new_counter[
+                id_to_name.get(wikidata_id, qwikidata_fallback(wikidata_id))
+            ] = count
         instance_ofs_human_readable[conll_type] = new_counter
 
     for conll_type, counter in tqdm(
@@ -109,25 +132,18 @@ def main(
         desc="Outputting instance-of statistics...",
     ):
         instance_of_histogram_output_file = (
-            output_folder / f"{conll_type}_instance_of_counts.txt"
+            output_folder / f"{conll_type}_instance_of_counts.tsv"
         )
-        with click.open_file(
-            instance_of_histogram_output_file, encoding="utf-8", mode="a"
-        ) as hist_out:
-            for wid, count in instance_ofs_human_readable[conll_type].most_common():
-                hist_out.write(f"{wid}\t{count}\n")
-
-    overlap_statistics = Counter()
-    for wid, type_set in tqdm(
-        types_per_id.items(), desc="Computing overlap statistics"
-    ):
-        type_str = "-".join(sorted(type_set))
-        overlap_statistics[type_str] += 1
-
-    with click.open_file(
-        overlap_statistics_output_file, encoding="utf-8", mode="w"
-    ) as stats_out:
-        stats_out.write(orjson_dump(overlap_statistics))
+        instance_of_df = pd.DataFrame.from_records(
+            instance_ofs_human_readable[conll_type].most_common(),
+            columns=["wikidata_id", "count"],
+        )
+        write(
+            instance_of_df,
+            instance_of_histogram_output_file,
+            io_format="tsv",
+            index=False,
+        )
 
 
 if __name__ == "__main__":
