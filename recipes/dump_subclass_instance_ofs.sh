@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage () {
-    echo "Usage: bash analyze_subclass_instance_ofs.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple MONGODB_PORT=27017 COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1 DISABLE_SUBCLASSING=no]"
+    echo "Usage: bash dump_subclass_instance_ofs.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple MONGODB_PORT=27017 COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1 DISABLE_SUBCLASSING=no]"
 }
 
 [ $# -lt 4 ] && usage && exit 1
@@ -87,13 +87,5 @@ dump () {
 for conll_type in $entity_types
 do
     dump $conll_type $langs $db_name $collection_name $mongodb_port $should_disable_subclassing &
-done
-wait
-
-for conll_type in $entity_types
-do
-    python paranames/analysis/analyze_jsonl_dump.py \
-        --mongodb-port $mongodb_port --db-name $db_name --collection-name $collection_name \
-        --input-file $output_folder/${conll_type}.jsonl --output-folder $output_folder
 done
 wait
