@@ -179,9 +179,19 @@ conll_type_to_wikidata_id = {"PER": "Q5", "LOC": "Q82794", "ORG": "Q43229"}
     help="Strict mode: Only output names in languages specified using the -l flag.",
 )
 @click.option(
-    "--disable-subclass",
+    "--disable-subclass-per",
     is_flag=True,
-    help="Disable subclassing when assigning entity types.",
+    help="Disable subclassing for PER.",
+)
+@click.option(
+    "--disable-subclass-loc",
+    is_flag=True,
+    help="Disable subclassing for LOC.",
+)
+@click.option(
+    "--disable-subclass-org",
+    is_flag=True,
+    help="Disable subclassing for ORG.",
 )
 def main(
     mongodb_uri,
@@ -198,7 +208,9 @@ def main(
     ids,
     num_docs,
     strict,
-    disable_subclass
+    disable_subclass_per,
+    disable_subclass_loc,
+    disable_subclass_org,
 ):
 
     # parse some input args
@@ -221,7 +233,15 @@ def main(
 
     # formulate a list of all valid instance-of classes
     parent_wikidata_id = conll_type_to_wikidata_id[conll_type]
+
+    disable_subclass = {
+        "PER": disable_subclass_per,
+        "LOC": disable_subclass_loc,
+        "ORG": disable_subclass_org,
+    }[conll_type]
+
     if disable_subclass:
+        print(f"Disabling subclassing for {conll_type}", file=sys.stderr)
         valid_instance_ofs = [parent_wikidata_id]
     else:
         subclass_dict = subclasses.find_one({"id": parent_wikidata_id})

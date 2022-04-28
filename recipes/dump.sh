@@ -3,7 +3,7 @@
 set -euo pipefail
 
 usage () {
-    echo "Usage: bash dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple MONGODB_PORT=27017 COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1 DISABLE_SUBCLASSING=no]"
+    echo "Usage: bash dump.sh LANGUAGES OUTPUT_FOLDER [ENTITY_TYPES=PER,LOC,ORG DB_NAME=wikidata_db COLLECTION_NAME=wikidata_simple MONGODB_PORT=27017 COLLAPSE_LANGUAGES=no KEEP_INTERMEDIATE_FILES=no NUM_WORKERS=1 ENABLE_SUBCLASSING_PER=no ENABLE_SUBCLASSING_LOC=yes ENABLE_SUBCLASSING_ORG=yes]"
 }
 
 [ $# -lt 4 ] && usage && exit 1
@@ -19,7 +19,9 @@ should_keep_intermediate_files=${8:-no}
 default_format="tsv"
 
 num_workers=${9:-1}
-should_disable_subclassing=${10:-no}
+enable_subclassing_per=${10:-no}
+enable_subclassing_loc=${11:-yes}
+enable_subclassing_org=${12:-yes}
 
 extra_data_folder="${output_folder}"/extra_data
 
@@ -54,7 +56,9 @@ dump () {
     local db_name=$3
     local collection_name=$4
     local mongodb_port=$5
-    local disable_subclassing=$6
+    local enable_subclassing_per=$6
+    local enable_subclassing_loc=$7
+    local enable_subclassing_org=$8
     local output="${output_folder}/${conll_type}.tsv"
 
     if [ "${langs}" = "all" ]
@@ -75,14 +79,15 @@ dump () {
         exclude_langs_flag="-L ${exclude_these_langs}"
     fi
 
-    if [ "${should_disable_subclassing}" = "yes" ]
-    then
-        echo "[INFO] Disabling use of subclass information."
-        disable_subclass_flag="--disable-subclass"
-    else
-        echo "[INFO] No subclass information disabled."
-        disable_subclass_flag=""
-    fi
+    disable_subclass_flag_per=$(
+        [ "${enable_subclassing_per}" = "no" ] && echo "--disable-subclass-per" || echo ""
+    )
+    disable_subclass_flag_loc=$(
+        [ "${enable_subclassing_loc}" = "no" ] && echo "--disable-subclass-loc" || echo ""
+    )
+    disable_subclass_flag_org=$(
+        [ "${enable_subclassing_org}" = "no" ] && echo "--disable-subclass-org" || echo ""
+    )
 
     # dump everything into one file
     python paranames/io/wikidata_dump_transliterations.py \
@@ -93,7 +98,10 @@ dump () {
         --database-name "${db_name}" \
         --collection-name "${collection_name}" \
         --mongodb-port "${mongodb_port}" \
-        -o - $exclude_langs_flag $disable_subclass_flag > "${output}"
+        -o - $exclude_langs_flag \
+        $disable_subclass_flag_per \
+        $disable_subclass_flag_loc \
+        $disable_subclass_flag_org > "${output}"
 
 }
 
@@ -167,7 +175,8 @@ combine_tsv_files () {
 echo "[1/5] Extract from MongoDB..."
 for conll_type in $entity_types
 do
-    dump $conll_type $langs $db_name $collection_name $mongodb_port $should_disable_subclassing &
+    dump $conll_type $langs $db_name $collection_name $mongodb_port \
+         $enable_subclassing_per $enable_subclassing_loc $enable_subclassing_org &
 done
 wait
 
