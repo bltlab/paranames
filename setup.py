@@ -17,7 +17,7 @@ def setup_package() -> None:
         # Package type information
         package_data={"paranames": ["py.typed"]},
         # Python 3.8
-        python_requires="==3.8.*",
+        python_requires=">=3.8.*",
         install_requires=[
             "attrs",
             "black",
@@ -39,7 +39,7 @@ def setup_package() -> None:
             "scipy",
             "sklearn",
             "tqdm",
-            "unicodeblock"
+            "unicodeblock",
         ],
         license="MIT",
         description="ParaNames",
