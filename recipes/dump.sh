@@ -27,9 +27,16 @@ extra_data_folder="${output_folder}"/extra_data
 
 if [ "${should_keep_intermediate_files}" = "yes" ]
 then
+    echo "Saving intermediate files to ${output_folder} since should_keep_intermediate_files=yes"
     intermediate_output_folder=$output_folder
-else
+elif [ -z "${intermediate_output_folder}" ]
+then
     intermediate_output_folder=$(mktemp -d /tmp/paranames_intermediate_files_XXXXX)
+    echo "Temporarily saving intermediate files to ${intermediate_output_folder}"
+else
+    intermediate_output_folder=${intermediate_output_folder}
+    echo "Temporarily saving intermediate files to ${intermediate_output_folder}"
+    mkdir -p ${intermediate_output_folder}
 fi
 
 mkdir --verbose -p $output_folder/combined
@@ -59,7 +66,7 @@ dump () {
     local enable_subclassing_per=$6
     local enable_subclassing_loc=$7
     local enable_subclassing_org=$8
-    local output="${output_folder}/${conll_type}.tsv"
+    local output="${intermediate_output_folder}/${conll_type}.tsv"
 
     if [ "${langs}" = "all" ]
     then
@@ -181,9 +188,9 @@ done
 wait
 
 # Step 2: combine into one TSV
-combined_tsv="${intermediate_output_folder}/combined_postprocessed.tsv"
+combined_tsv="${intermediate_output_folder}/combined.tsv"
 echo "[2/5] Combining TSV files together into $combined_tsv"
-combine_tsv_files ${output_folder}/*.tsv > $combined_tsv
+combine_tsv_files ${intermediate_output_folder}/*.tsv > $combined_tsv
 
 # Step 3: Apply post-processing steps
 echo "[3/5] Running postprocess.py"
