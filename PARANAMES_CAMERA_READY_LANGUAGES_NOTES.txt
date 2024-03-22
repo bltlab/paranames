@@ -1,0 +1,57 @@
+Notes on languages
+------------------
+* `be-tarask`: Belarusian (Taraskievica orthography)
+* `be-x-old`: Also Belarusian???
+    * Seems Cyrillic
+
+Creating a harmonized `human_readable_languages.json`
+---------------------------------------------------
+* We can get most languages from the SPAQRL endpoint using `paranames/scrape/scrape_language_table.py`.
+* Some languages missing so need to find the rest by hand from https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all
+
+These were the language codes affected:
+bci: Baoulé
+    - https://en.wikipedia.org/wiki/Baoul%C3%A9_language
+bew: Betawi language
+    - https://en.wikipedia.org/wiki/Betawi_language
+cpx-latn: Pu–Xian Min (Latin script)
+    - https://en.wikipedia.org/wiki/Pu%E2%80%93Xian_Min
+dga: Dagaare
+    - https://meta.wikimedia.org/wiki/Requests_for_new_languages/Wikipedia_Dagaare
+fat: Fante
+    - https://en.wikipedia.org/wiki/Fante_dialect
+gld: Nanai
+    - https://en.wikipedia.org/wiki/Nanai_language
+hsn: Xiang Chinese
+    - https://en.wikipedia.org/wiki/Xiang_Chineseu
+igl: Igala
+    - https://en.wikipedia.org/wiki/Igala_language
+kus: Kusaal
+    - https://en.wikipedia.org/wiki/Kusaal_language
+mag: Magahi
+    - https://en.wikipedia.org/wiki/Magahi_language
+mnc-latn: Manchu (Latin script)
+    - https://en.wikipedia.org/wiki/Manchu_language
+mos: Mooré
+    - https://en.wikipedia.org/wiki/Moor%C3%A9
+nmz: Nawdm
+    - https://en.wikipedia.org/wiki/Nawdm_language
+ojb: Northwestern Ojibwa
+    - https://en.wikipedia.org/wiki/Northwestern_Ojibwa
+pap-aw: Papamiento in Aruba
+    - https://phabricator.wikimedia.org/T275682
+pcm: Nigerian Pidgin
+    - https://en.wikipedia.org/wiki/Nigerian_Pidgin
+se-fi: Northern Sami (Finland)
+se-no: Northern Sami (Norway)
+se-se: Northern Sami (Sweden)
+sh-cyrl: Serbo-Croatian (Cyrillic script)
+sh-latn: Serbo-Croatian (Latin script)
+sro: Campidanese Sardinian
+    - https://en.wikipedia.org/wiki/Campidanese_Sardinian
+vmw: Central Makhuwa
+    - https://en.wikipedia.org/wiki/Makhuwa_language
+wuu-hant: Wu Chinese (Traditional script)
+    - https://en.wikipedia.org/wiki/Wu_Chinese
+yue-hant: Cantonese (Traditional script)
+    - https://en.wikipedia.org/wiki/Cantonese
