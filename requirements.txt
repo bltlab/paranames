@@ -16,6 +16,6 @@ qwikidata
 requests
 rich
 scipy
-sklearn
+scikit-learn
 tqdm
 unicodeblock

@@ -37,7 +37,6 @@ def setup_package() -> None:
             "requests",
             "rich",
             "scipy",
-            "sklearn",
             "tqdm",
             "unicodeblock",
         ],
