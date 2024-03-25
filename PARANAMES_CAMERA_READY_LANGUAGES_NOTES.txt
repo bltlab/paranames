@@ -1,15 +1,44 @@
-Notes on languages
-------------------
+# Notes on languages
+---------------------
 * `be-tarask`: Belarusian (Taraskievica orthography)
 * `be-x-old`: Also Belarusian???
-    * Seems Cyrillic
+    * This is the old code for Belarusian written with Taraškievica orthography. It is now replaced by `be-tarask`.
 
-Creating a harmonized `human_readable_languages.json`
----------------------------------------------------
+- sh-{cyrl,latn}:
+    * Serbo-Croatian (Cyrillic script)
+    * Serbo-Croatian (Latin script)
+    * Very small in terms of content -> handful of names
+    * Generally considered outdated and not recommended for use
+    * Sources:
+        * Economist: https://www.economist.com/the-economist-explains/2017/04/10/is-serbo-croatian-a-language
+
+## Kazazkh
+----------
+* There is a mix of script and geography tags
+* To compare `kk-tr` and `kk-latn`, I checked where the two fields disagree. Here is an example that show the difference:
+
+```
+{
+  "wikidata_id": "Q186466",
+  "type": "LOC",
+  "eng": "Almaty Region",
+  "kk_arab": "الماتى وبلىسى",
+  "kk_cn": "الماتى وبلىسى",
+  "kk_cyrl": "Алматы облысы",
+  "kk_kz": "Алматы облысы",
+  "kk_latn": "Almaty oblysy",
+  "kk_tr": "Almatı oblısı", <--- note the Turkish-specific use of ı
+  "latin_and_turkey_equal": false
+}
+```
+
+## Creating a harmonized `human_readable_languages.json`
+--------------------------------------------------------
 * We can get most languages from the SPAQRL endpoint using `paranames/scrape/scrape_language_table.py`.
 * Some languages missing so need to find the rest by hand from https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all
 
 These were the language codes affected:
+
 bci: Baoulé
     - https://en.wikipedia.org/wiki/Baoul%C3%A9_language
 bew: Betawi language
