@@ -38,7 +38,29 @@ This repository contains the code for running our canonical name translation exp
 
 ## Release format
 
-The corpus is released as a gzipped TSV file which is produced by the pipeline included in this repository.
+The corpus is released as a gzipped TSV file which contains the following columns:
+
+* `wikidata_id`: the Wikidata ID of the entity
+* `eng`: the English name of the entity
+* `label`: the name of the entity in the language of the row
+* `language`: the language of the row
+* `type`: the type of the entity (PER, LOC, ORG)
+
+Some example rows are shown below:
+```
+wikidata_id     eng     label   language        type
+Q181893 Fredericksburg and Spotsylvania National Military Park  Fredericksburg and Spotsylvania National Military Park  mg      LOC
+Q257160 Burgheim        Burgheim        fr      LOC
+Q508851 Triefenstein    Triefenstein    nl      LOC
+Q303923 Ruhstorf an der Rott    Ruhstorf an der Rott    bar     LOC
+Q284696 Oberelsbach     Oberelsbach     wo      LOC
+Q550561 Triftern        Թրիֆթերն        hy      LOC
+Q529488 Reisbach        Reisbach        fr      LOC
+Q385427 Stadtlauringen  Stadtlauringen  ia      LOC
+Q505327 Wildflecken     Wildflecken     id      LOC
+Q505288 Ipsheim Իպսհայմ hy      LOC
+```
+
 
 ## Release notes
 
