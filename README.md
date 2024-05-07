@@ -18,6 +18,22 @@ Please cite as:
 
 See the [Releases page](https://github.com/bltlab/paranames/releases) for the downloadable release.
 
+## Experimental results from paper
+
+**NOTE**: The code for the downstream experiments does NOT live in this repository. See below for links.
+
+### Canonical name translation
+
+[Link to repository](https://github.com/j0ma/paranames-canonical-name-translation)
+
+This repository contains the code for running our canonical name translation experiments with `fairseq`.
+
+### Named entity recognition
+
+[Link to repository](https://github.com/j0ma/paranames-named-entity-recognition)
+
+This repository contains the code for running our canonical name translation experiments with `dynet`.
+
 # Using the data release
 
 ## Release format
