@@ -1,8 +1,8 @@
 <img src="data/paranames_banner.png"></img>
 
-# ParaNames: A multilingual resource for parallel names
+# ParaNames 1.0: Creating an Entity Name Corpus for 400+ Languages using Wikidata
 
-This repository contains releases for the ParaNames corpus, consisting of parallel names of over 12 million named entities in over 400 languages.
+This repository is the home of the ParaNames project, a massively multilingual dataset consisting of parallel names of over 16.8 million named entities in over 400 languages. This README contains links to corpus releases as well as code used in our canonical name translation and named entity recognition experiments.
 
 ParaNames was introduced in [Sälevä, J. and Lignos, C., 2022. ParaNames: A Massively Multilingual Entity Name Corpus. arXiv preprint arXiv:2202.14035](https://arxiv.org/abs/2202.14035).
 
