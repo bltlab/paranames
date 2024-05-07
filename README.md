@@ -36,7 +36,7 @@ This repository contains the code for running our canonical name translation exp
 
 # Using the data release
 
-## Release format
+## Format
 
 The corpus is released as a gzipped TSV file which contains the following columns:
 
@@ -62,7 +62,7 @@ Q505288 Ipsheim Իպսհայմ hy      LOC
 ```
 
 
-## Release notes
+## Notes
 
 ### Repeated entities
 
