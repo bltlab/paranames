@@ -4,10 +4,16 @@
 
 This repository is the home of the ParaNames project, a massively multilingual dataset consisting of parallel names of over 16.8 million named entities in over 400 languages. This README contains links to corpus releases as well as code used in our canonical name translation and named entity recognition experiments.
 
-ParaNames was introduced in [Sälevä, J. and Lignos, C., 2022. ParaNames: A Massively Multilingual Entity Name Corpus. arXiv preprint arXiv:2202.14035](https://arxiv.org/abs/2202.14035).
+ParaNames was originally introduced in [Sälevä, J. and Lignos, C., 2022. ParaNames: A Massively Multilingual Entity Name Corpus. arXiv preprint arXiv:2202.14035](https://arxiv.org/abs/2202.14035) and subsequently published at LREC-COLING 2024.
 
 Please cite as:
 ```
+TODO
+```
+
+While we prefer you cite the LREC-COLING version above, the Arxiv preprint can be cited as
+
+```bibtex
 @article{saleva2022paranames,
   title={ParaNames: A Massively Multilingual Entity Name Corpus},
   author={S{\"a}lev{\"a}, Jonne and Lignos, Constantine},
