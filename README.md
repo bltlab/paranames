@@ -8,17 +8,37 @@ ParaNames was originally introduced in [Sälevä, J. and Lignos, C., 2022. ParaN
 
 Please cite as:
 ```
-TODO
+@inproceedings{saleva-lignos-2024-paranames-1,
+    title = "{P}ara{N}ames 1.0: Creating an Entity Name Corpus for 400+ Languages Using {W}ikidata",
+    author = {S{\"a}lev{\"a}, Jonne  and
+      Lignos, Constantine},
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italy",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.1103",
+    pages = "12599--12610",
+    abstract = "We introduce ParaNames, a massively multilingual parallel name resource consisting of 140 million names spanning over 400 languages. Names are provided for 16.8 million entities, and each entity is mapped from a complex type hierarchy to a standard type (PER/LOC/ORG). Using Wikidata as a source, we create the largest resource of this type to date. We describe our approach to filtering and standardizing the data to provide the best quality possible. ParaNames is useful for multilingual language processing, both in defining tasks for name translation/transliteration and as supplementary data for tasks such as named entity recognition and linking. We demonstrate the usefulness of ParaNames on two tasks. First, we perform canonical name translation between English and 17 other languages. Second, we use it as a gazetteer for multilingual named entity recognition, obtaining performance improvements on all 10 languages evaluated.",
+}
 ```
 
 While we prefer you cite the LREC-COLING version above, the Arxiv preprint can be cited as
 
 ```bibtex
-@article{saleva2022paranames,
-  title={ParaNames: A Massively Multilingual Entity Name Corpus},
-  author={S{\"a}lev{\"a}, Jonne and Lignos, Constantine},
-  journal={arXiv preprint arXiv:2202.14035},
-  year={2022}
+@misc{sälevä2024paranames,
+      title={ParaNames 1.0: Creating an Entity Name Corpus for 400+ Languages using Wikidata},
+      author={Jonne Sälevä and Constantine Lignos},
+      year={2024},
+      eprint={2405.09496},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
 }
 ```
 
